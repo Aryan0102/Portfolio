@@ -9,7 +9,7 @@ const desktopIcons = [
     { name: 'Resume.pdf', image: DocumentIcon, link: "https://drive.google.com/file/d/1UzbC4dDZ7vTWB4V6Jq1joFC8vXaXpofV/view?usp=sharing", size: 13},
     { name: 'GitHub', image: GitHubIcon, link: "https://github.com/Aryan0102", size: 13 },
     { name: 'LinkedIn', image: Linkedin, link: "https://www.linkedin.com/in/aryangupta0102/", size: 12 },
-    { name: 'Return', image: ReturnIcon, link: "https://www.aryan-sgupta.com/classic/", size: 12 },
+    { name: 'Return', image: ReturnIcon, link: "https://classic.aryan-sgupta.com", size: 12 },
 ];
 
 const Desktop = ({ children }) => (
