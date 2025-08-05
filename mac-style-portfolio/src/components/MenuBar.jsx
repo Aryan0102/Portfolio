@@ -4,6 +4,7 @@ import { IoSearch } from "react-icons/io5";
 import { FaWifi } from "react-icons/fa";
 import { IoIosBatteryFull } from "react-icons/io";
 import { Context } from '../context';
+import AppleLogo from "../assets/applelogo.png";
 
 const MenuBar = () => {
 
@@ -38,7 +39,7 @@ const MenuBar = () => {
         <div className="w-full h-10 flex backdrop-blur-sm bg-white/10 items-center justify-between px-4 shadow-md">
             <div className="text-white text-sm w-full flex flex-row justify-between items-center">
                 <div className="flex flex-row items-center gap-6">
-                    <p className="font-bold text-2xl"></p>
+                    <img src={AppleLogo} alt="Apple Logo" className="w-4.5 h-4.5 cursor-pointer" />
                     <p className="font-semibold">{activeWindow || "Aryan Gupta"}</p>
                     <p className="font-semibold">File</p>
                     <p className="font-semibold">Edit</p>
