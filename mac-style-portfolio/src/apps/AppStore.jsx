@@ -111,8 +111,8 @@ const AppStore = () => {
                   <div className="space-y-8">
                     {/* Featured Section */}
                     {featuredSkill && (
-                      <div className="bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 rounded-2xl p-8">
-                        <p className="text-sm font-medium text-gray-300 mb-2">FEATURED</p>
+                      <div className="bg-gray-800 border border-gray-700 rounded-2xl p-8">
+                        <p className="text-sm font-medium text-blue-400 mb-2">FEATURED</p>
                         <p className="text-4xl font-bold text-white mb-3">{featuredSkill.title}</p>
                         <p className="text-lg text-gray-300 mb-6 max-w-2xl">{featuredSkill.description}</p>
                         <button className="bg-white text-black px-6 py-3 rounded-full font-semibold hover:scale-105 transition-transform">
