@@ -6,12 +6,14 @@ const ContextProvider = ({ children }) => {
   const [openWindows, setOpenWindows] = useState(["Tips"]);
   const [activeWindow, setActiveWindow] = useState("Tips");
   const [spotlightOpen, setSpotlightOpen] = useState(false);
+  const [launchTarget, setLaunchTarget] = useState(null);
 
-  const handleOpenWindow = (appName) => {
+  const handleOpenWindow = (appName, target = null) => {
     if (!openWindows.includes(appName)) {
       setOpenWindows([...openWindows, appName]);
     }
     setActiveWindow(appName);
+    setLaunchTarget(target ? { app: appName, title: target } : null);
   };
 
   const handleCloseWindow = (appName) => {
@@ -29,6 +31,8 @@ const ContextProvider = ({ children }) => {
 
   const closeSpotlight = () => setSpotlightOpen(false);
 
+  const clearLaunchTarget = () => setLaunchTarget(null);
+
   const value = {
     openWindows,
     activeWindow,
@@ -37,7 +41,9 @@ const ContextProvider = ({ children }) => {
     focusWindow,
     spotlightOpen,
     toggleSpotlight,
-    closeSpotlight
+    closeSpotlight,
+    launchTarget,
+    clearLaunchTarget
   };
 
   return (

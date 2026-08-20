@@ -20,6 +20,7 @@ import {
 import { useState, useEffect } from "react";
 import { APIProvider, Map, AdvancedMarker, Pin } from '@vis.gl/react-google-maps';
 import { getInformation } from "../getInfo"
+import { useLaunchTarget } from '../useLaunchTarget';
 import { MacOSLoader } from '../assets/loader';
 
 const categoryIconMap = {
@@ -75,6 +76,11 @@ const Maps = () => {
     setCenter({ lat: Number(place.lat), lng: Number(place.lng) });
     setZoom(17);
   };
+
+  useLaunchTarget('Maps', importantPlaces.length > 0, (name) => {
+    const place = importantPlaces.find((entry) => entry.name === name);
+    if (place) handlePlaceClick(place);
+  });
 
   const toggleExpand = (placeName) => {
     setExpandedPlace(expandedPlace === placeName ? null : placeName);

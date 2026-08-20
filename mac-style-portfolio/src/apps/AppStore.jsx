@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import Window from "../components/Window";
 import { getInformation } from "../getInfo"
+import { useLaunchTarget } from '../useLaunchTarget';
 import { MacOSLoader } from '../assets/loader';
 import { IoSearch, IoCompass, IoCheckmarkCircle, IoDownload } from "react-icons/io5";
 
-// Keeps the rounded square in place when an icon URL fails to load
 const SkillIcon = ({ src, alt, size }) => {
   const [failed, setFailed] = useState(false);
 
@@ -43,6 +43,8 @@ const AppStore = () => {
     fetchData();
   }, []);
 
+  useLaunchTarget('App Store', !loading, (title) => setQuery(title));
+
   const mastered = skills.filter(skill => skill.learned === 'TRUE');
   const learning = skills.filter(skill => skill.learned === "FALSE");
   const featuredSkill = skills[0];
@@ -59,7 +61,6 @@ const AppStore = () => {
     ? skills.filter(skill => (skill.title || '').toLowerCase().includes(search) || (skill.description || '').toLowerCase().includes(search))
     : [];
 
-  // App Store lays its shelves out in columns of three rows
   const toColumns = (items, rows = 3) => {
     const columns = [];
     for (let i = 0; i < items.length; i += rows) {
@@ -106,9 +107,7 @@ const AppStore = () => {
       height={700}
       children={
         <div className="bg-gray-900 w-full h-full flex">
-          {/* Sidebar */}
           <div className="w-56 flex-shrink-0 bg-gray-950 border-r border-gray-800 flex flex-col p-3">
-            {/* Search */}
             <div className="flex items-center gap-2 h-7 px-2 rounded-md bg-gray-800 mb-4">
               <IoSearch className="w-3.5 h-3.5 text-gray-400 flex-shrink-0" />
               <input
@@ -120,7 +119,6 @@ const AppStore = () => {
               />
             </div>
 
-            {/* Navigation */}
             <div className="space-y-0.5">
               {navItems.map((item) => (
                 <button
@@ -138,14 +136,12 @@ const AppStore = () => {
               ))}
             </div>
 
-            {/* Account */}
             <div className="mt-auto flex items-center gap-2 px-2 py-2 border-t border-gray-800">
               <div className="w-7 h-7 rounded-full bg-gray-700 flex items-center justify-center text-xs text-white">AG</div>
               <p className="text-sm text-gray-300">Aryan Gupta</p>
             </div>
           </div>
 
-          {/* Main Content */}
           <div className="flex-1 overflow-y-auto noscrollbar">
             {loading ? (
               <div className="flex flex-col items-center justify-center h-full">
@@ -166,10 +162,8 @@ const AppStore = () => {
               </div>
             ) : (
               <div className="p-6">
-                {/* Discover Tab */}
                 {activeTab === 'discover' && (
                   <div className="space-y-6">
-                    {/* Featured card */}
                     {featuredSkill && (
                       <div className="rounded-2xl bg-gray-800 border border-gray-700 overflow-hidden">
                         <div className="p-6">
@@ -197,7 +191,6 @@ const AppStore = () => {
                   </div>
                 )}
 
-                {/* Mastered Tab */}
                 {activeTab === 'mastered' && (
                   <div>
                     <p className="text-2xl font-bold text-white mb-2">Mastered</p>
@@ -211,7 +204,6 @@ const AppStore = () => {
                   </div>
                 )}
 
-                {/* Learning Tab */}
                 {activeTab === 'learning' && (
                   <div>
                     <p className="text-2xl font-bold text-white mb-2">Currently Learning</p>

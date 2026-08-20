@@ -4,6 +4,7 @@ import { Context } from '../context';
 import background from "../assets/macbg.jpg";
 import { IoChevronUp, IoChevronDown } from "react-icons/io5";
 import { getInformation } from "../getInfo"
+import { useLaunchTarget } from '../useLaunchTarget';
 import { MacOSLoader } from '../assets/loader';
 
 const TimeMachine = () => {
@@ -29,7 +30,11 @@ const TimeMachine = () => {
         fetchData();
     }, []);
 
-    // Fade and pull the stack in on the frame after mount so the transition runs
+    useLaunchTarget('Time Machine', experiences.length > 0, (title) => {
+        const index = experiences.findIndex((experience) => experience.company === title);
+        if (index >= 0) setBrowseIndex(index);
+    });
+
     useEffect(() => {
         const frame = requestAnimationFrame(() => setVisible(true));
         return () => {
@@ -43,8 +48,6 @@ const TimeMachine = () => {
         exitTimeout.current = setTimeout(() => handleCloseWindow("Time Machine"), 400);
     }, [handleCloseWindow]);
 
-    // Older snapshots sit further back in the stack, so travelling back in time
-    // means moving down the array
     const goBackInTime = () => setBrowseIndex((index) => Math.min(experiences.length - 1, index + 1));
     const goForwardInTime = () => setBrowseIndex((index) => Math.max(0, index - 1));
 
@@ -68,7 +71,6 @@ const TimeMachine = () => {
                 zIndex: 100 - depth
             }}
         >
-            {/* Snapshot title bar */}
             <div className="flex items-center gap-2 px-3 py-2 bg-gray-800 border-b border-gray-700">
                 <div className="w-3 h-3 rounded-full bg-gray-600"></div>
                 <div className="w-3 h-3 rounded-full bg-gray-600"></div>
@@ -99,7 +101,6 @@ const TimeMachine = () => {
         <div
             className={`fixed inset-0 z-[2000] overflow-hidden select-none transition-opacity duration-500 ${visible ? 'opacity-100' : 'opacity-0'}`}
         >
-            {/* The desktop wallpaper, blurring out as the state opens */}
             <div
                 className={`absolute inset-0 bg-cover bg-center transition-all duration-700 ${visible ? 'blur-2xl scale-110' : 'blur-none scale-100'}`}
                 style={{ backgroundImage: `url(${background})` }}
@@ -123,7 +124,6 @@ const TimeMachine = () => {
                 </div>
             ) : (
                 <>
-                    {/* Receding stack of snapshots */}
                     <div className={`absolute inset-0 transition-transform duration-500 ${visible ? 'scale-100' : 'scale-110'}`}>
                         {experiences.slice(browseIndex, browseIndex + 5).map((experience, depth) => (
                             <div key={browseIndex + depth}>
@@ -132,7 +132,6 @@ const TimeMachine = () => {
                         ))}
                     </div>
 
-                    {/* Travel arrows, alongside the timeline like the real app */}
                     <div className="absolute top-1/2 left-1/2 ml-[330px] -translate-y-1/2 flex flex-col items-center gap-2 z-[200]">
                         <button
                             onClick={goBackInTime}
@@ -150,7 +149,6 @@ const TimeMachine = () => {
                         </button>
                     </div>
 
-                    {/* Snapshot timeline down the right edge */}
                     <div className="absolute right-0 top-0 bottom-0 w-56 flex flex-col justify-center gap-1 pr-3 z-[200]">
                         {experiences.map((experience, index) => (
                             <div key={index}>
@@ -164,7 +162,6 @@ const TimeMachine = () => {
                                     <div className={`h-px transition-all ${index === browseIndex ? 'w-10 bg-white' : 'w-5 bg-gray-500 group-hover:bg-gray-300'}`} />
                                 </button>
 
-                                {/* Filler ticks, like the minor backup marks in the real timeline */}
                                 {index < experiences.length - 1 && (
                                     <div className="flex flex-col items-end gap-1 py-1">
                                         {[0, 1, 2].map((tick) => (
@@ -176,7 +173,6 @@ const TimeMachine = () => {
                         ))}
                     </div>
 
-                    {/* Exit */}
                     <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-[200]">
                         <button
                             onClick={exitTimeMachine}

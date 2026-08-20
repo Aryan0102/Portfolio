@@ -3,6 +3,7 @@ import { IoCheckmarkCircle, IoEllipseOutline, IoChevronDown, IoChevronUp } from 
 import { MdCode, MdSchool, MdTravelExplore, MdFitnessCenter, MdBusiness } from "react-icons/md";
 import { useState, useEffect } from "react";
 import { getInformation } from "../getInfo"
+import { useLaunchTarget } from '../useLaunchTarget';
 import { MacOSLoader } from '../assets/loader';
 
 const categories = [
@@ -45,7 +46,13 @@ const Reminders = () => {
     });
   };
 
-  // Filter items
+  useLaunchTarget('Reminders', bucketListItems.length > 0, (title) => {
+    const item = bucketListItems.find((entry) => entry.title === title);
+    if (!item) return;
+    setSelectedCategory(item.category);
+    setExpandedItems((items) => (items.includes(item.id) ? items : [...items, item.id]));
+  });
+
   const filteredItems = selectedCategory === "All" ? bucketListItems : bucketListItems.filter(item => item.category === selectedCategory);
 
   return (
@@ -62,7 +69,6 @@ const Reminders = () => {
             </div>
           ) : (
             <>
-              {/* Left Sidebar */}
               <div className="w-[30%] h-full bg-gray-800 border-r border-gray-700 p-4">
                 <p className="text-lg font-semibold text-white mb-4">Reminders</p>
 
@@ -83,7 +89,6 @@ const Reminders = () => {
                 </div>
               </div>
 
-              {/* Main Content */}
               <div className="flex-1 h-full overflow-auto p-6">
                 <h3 className="text-sm font-medium text-gray-400 mb-4">
                   {selectedCategory} - {filteredItems.length}

@@ -12,6 +12,7 @@ import MapsIcon from "../assets/mapsicon.png";
 import RemindersIcon from "../assets/remindersicon.png"
 import MatlabIcon from "../assets/matlabicon.png"
 import { getInformation } from "../getInfo"
+import { useLaunchTarget } from '../useLaunchTarget';
 import { MacOSLoader } from '../assets/loader';
 import { IoSearch, IoApps, IoMove, IoDocumentText, IoArrowUndo } from "react-icons/io5";
 
@@ -65,7 +66,6 @@ const Tips = () => {
         return iconMap[iconName] || TipsIcon;
     };
 
-    // The sheet's icon name maps to the window name the app opens as
     const getWindowByName = (iconName) => {
         const windowMap = {
             'MailIcon': 'Mail',
@@ -97,6 +97,8 @@ const Tips = () => {
         fetchData();
     }, []);
 
+    useLaunchTarget('Tips', !loading, (title) => setQuery(title));
+
     const search = query.trim().toLowerCase();
     const isSearching = search.length > 0;
 
@@ -122,7 +124,6 @@ const Tips = () => {
                         </div>
                     ) : (
                         <div className="flex-1 overflow-auto noscrollbar">
-                            {/* Hero + search */}
                             <div className="pt-8 pb-10 px-8">
                                 <p className="text-3xl font-semibold text-center">Need help? Find answers here.</p>
                                 <div className="mt-5 mx-auto w-[72%] max-w-[600px] flex items-center gap-2 h-9 px-4 rounded-full border border-gray-700 bg-gray-800">
@@ -179,7 +180,6 @@ const Tips = () => {
                                 </div>
                             ) : (
                                 <>
-                                    {/* Highlighted tips */}
                                     <div className="px-8">
                                         <div className="max-w-2xl mx-auto">
                                             {portfolioTips.map((tip, index) => (
@@ -194,7 +194,6 @@ const Tips = () => {
                                         </div>
                                     </div>
 
-                                    {/* App guides */}
                                     <div className="px-8 pt-12">
                                         <p className="text-xl font-semibold mb-4">Explore My Apps</p>
                                         <div className="grid grid-cols-3 gap-x-5 gap-y-6">
@@ -215,7 +214,6 @@ const Tips = () => {
                                         </div>
                                     </div>
 
-                                    {/* Closing section */}
                                     <div className="px-8 pt-12 pb-10">
                                         <p className="text-xl font-semibold mb-4">Get in Touch</p>
                                         <div className="rounded-xl bg-gray-800 border border-gray-700 p-5 flex items-center gap-4">

@@ -4,7 +4,6 @@ import { apps, getAppIcon } from '../appList';
 import { getInformation } from '../getInfo';
 import { IoSearch } from "react-icons/io5";
 
-// Each sheet is indexed under the app that shows it, so a hit can open that app
 const sources = [
     { sheet: 'Skills', app: 'App Store', category: 'Skills', title: (row) => row.title, subtitle: (row) => row.description },
     { sheet: 'Experience', app: 'Time Machine', category: 'Experience', title: (row) => row.company, subtitle: (row) => [row.role, row.date].filter(Boolean).join(' · ') },
@@ -27,7 +26,6 @@ const Spotlight = () => {
     const rowRefs = useRef({});
     const indexed = useRef(false);
 
-    // ⌘K opens it, ⌘Space too where the OS hasn't already claimed it
     useEffect(() => {
         const handleKeyDown = (e) => {
             if (e.metaKey && (e.key === 'k' || e.code === 'Space')) {
@@ -40,7 +38,6 @@ const Spotlight = () => {
         return () => window.removeEventListener('keydown', handleKeyDown);
     }, [toggleSpotlight]);
 
-    // Pull every sheet in the first time Spotlight is opened
     useEffect(() => {
         if (!spotlightOpen || indexed.current) return;
         indexed.current = true;
@@ -96,13 +93,11 @@ const Spotlight = () => {
     const contentMatches = search
         ? index
             .filter((entry) => entry.title.toLowerCase().includes(search) || entry.subtitle.toLowerCase().includes(search))
-            // Title hits outrank description hits
             .sort((a, b) => Number(b.title.toLowerCase().includes(search)) - Number(a.title.toLowerCase().includes(search)))
         : [];
 
     const results = [...appMatches, ...contentMatches].slice(0, 20);
 
-    // Group into sections while keeping the flat order for keyboard selection
     const sections = [];
     results.forEach((result) => {
         const section = sections.find((s) => s.category === result.category);
@@ -123,7 +118,7 @@ const Spotlight = () => {
 
     const openResult = (result) => {
         if (!result) return;
-        handleOpenWindow(result.app);
+        handleOpenWindow(result.app, result.category === 'Applications' ? null : result.title);
         closeSpotlight();
     };
 
@@ -155,7 +150,6 @@ const Spotlight = () => {
                 className="w-[680px] h-fit rounded-2xl bg-gray-900 border border-gray-700 shadow-2xl overflow-hidden"
                 onMouseDown={(e) => e.stopPropagation()}
             >
-                {/* Search field */}
                 <div className="flex items-center gap-3 px-4 h-16">
                     <IoSearch className="w-6 h-6 text-gray-400 flex-shrink-0" />
                     <input
@@ -170,7 +164,6 @@ const Spotlight = () => {
                     <p className="text-xs text-gray-500 flex-shrink-0">⌘K</p>
                 </div>
 
-                {/* Results */}
                 <div className="max-h-[340px] overflow-auto noscrollbar border-t border-gray-800 p-2">
                     {results.length === 0 ? (
                         <p className="text-sm text-gray-400 px-2 py-3">

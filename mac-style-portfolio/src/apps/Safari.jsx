@@ -3,6 +3,7 @@ import Window from "../components/Window";
 import { IoSearch, IoChevronBackOutline, IoChevronForwardOutline, IoShareOutline, IoAdd, IoCopyOutline } from "react-icons/io5";
 import { IoIosRefresh } from "react-icons/io";
 import { getInformation } from "../getInfo"
+import { useLaunchTarget } from '../useLaunchTarget';
 import { MacOSLoader } from '../assets/loader';
 
 const Safari = () => {
@@ -24,6 +25,11 @@ const Safari = () => {
     };
     fetchData();
   }, []);
+
+  useLaunchTarget('Safari', pages.length > 0, (title) => {
+    const index = pages.findIndex((page) => page.title === title);
+    if (index >= 0) setActiveTab(index);
+  });
 
   return (
     <Window

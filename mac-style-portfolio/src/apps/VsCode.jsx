@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import Window from "../components/Window";
 import { VscFiles, VscSearch, VscSourceControl, VscDebugAlt, VscExtensions, VscSettingsGear, VscAccount, VscGithubInverted } from "react-icons/vsc";
 import { getInformation } from "../getInfo"
+import { useLaunchTarget } from '../useLaunchTarget';
 import { MacOSLoader } from '../assets/loader';
 
 const VsCode = () => {
@@ -23,6 +24,11 @@ const VsCode = () => {
     };
     fetchData();
   }, []);
+
+  useLaunchTarget('Visual Studio Code', projects.length > 0, (title) => {
+    const index = projects.findIndex((project) => project.title === title);
+    if (index >= 0) setActiveFile(index);
+  });
 
   const currentProject = projects[activeFile];
 

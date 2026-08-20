@@ -9,7 +9,6 @@ import MapsIcon from './assets/mapsicon.png'
 import RemindersIcon from './assets/remindersicon.png'
 import MatlabIcon from './assets/matlabicon.png'
 
-// Shared by the Dock and Spotlight, in Dock order
 export const apps = [
   { name: 'Tips', icon: TipsIcon },
   { name: 'Visual Studio Code', icon: VsCodeIcon },
