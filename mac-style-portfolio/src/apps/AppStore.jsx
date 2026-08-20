@@ -2,13 +2,31 @@ import { useState, useEffect } from 'react';
 import Window from "../components/Window";
 import { getInformation } from "../getInfo"
 import { MacOSLoader } from '../assets/loader';
-import { IoSearch, IoCheckmarkCircle, IoBookOutline, IoApps, IoCodeSlash, IoBrush, IoBuild, IoChatbubbleOutline } from "react-icons/io5";
+import { IoSearch, IoCompass, IoCheckmarkCircle, IoDownload } from "react-icons/io5";
+
+// Keeps the rounded square in place when an icon URL fails to load
+const SkillIcon = ({ src, alt, size }) => {
+  const [failed, setFailed] = useState(false);
+
+  return (
+    <div className={`${size} rounded-xl bg-gray-800 flex-shrink-0 flex items-center justify-center overflow-hidden`}>
+      {!failed && (
+        <img
+          src={src}
+          alt={alt}
+          onError={() => setFailed(true)}
+          className="w-full h-full object-contain p-2"
+        />
+      )}
+    </div>
+  );
+};
 
 const AppStore = () => {
   const [activeTab, setActiveTab] = useState('discover');
   const [skills, setSkills] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [selectedCategory, setSelectedCategory] = useState('all-skills');
+  const [query, setQuery] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -27,22 +45,59 @@ const AppStore = () => {
 
   const mastered = skills.filter(skill => skill.learned === 'TRUE');
   const learning = skills.filter(skill => skill.learned === "FALSE");
+  const featuredSkill = skills[0];
 
   const navItems = [
-    { id: 'discover', label: 'Discover', icon: <IoSearch className="w-5 h-5" /> },
-    { id: 'mastered', label: 'Mastered', icon: <IoCheckmarkCircle className="w-5 h-5" /> },
-    { id: 'learning', label: 'Learning', icon: <IoBookOutline className="w-5 h-5" /> }
+    { id: 'discover', label: 'Discover', icon: <IoCompass className="w-4 h-4 text-blue-500" /> },
+    { id: 'mastered', label: 'Mastered', icon: <IoCheckmarkCircle className="w-4 h-4 text-green-500" /> },
+    { id: 'learning', label: 'Learning', icon: <IoDownload className="w-4 h-4 text-purple-500" /> }
   ];
 
-  const categories = [
-    { id: 'all-skills', label: 'All Skills', icon: <IoApps className="w-4 h-4" /> },
-    { id: 'development', label: 'Development', icon: <IoCodeSlash className="w-4 h-4" /> },
-    { id: 'design', label: 'Design', icon: <IoBrush className="w-4 h-4" /> },
-    { id: 'tools', label: 'Tools', icon: <IoBuild className="w-4 h-4" /> },
-    { id: 'languages', label: 'Languages', icon: <IoChatbubbleOutline className="w-4 h-4" /> }
-  ];
+  const search = query.trim().toLowerCase();
+  const isSearching = search.length > 0;
+  const results = isSearching
+    ? skills.filter(skill => (skill.title || '').toLowerCase().includes(search) || (skill.description || '').toLowerCase().includes(search))
+    : [];
 
-  const featuredSkill = skills[0];
+  // App Store lays its shelves out in columns of three rows
+  const toColumns = (items, rows = 3) => {
+    const columns = [];
+    for (let i = 0; i < items.length; i += rows) {
+      columns.push(items.slice(i, i + rows));
+    }
+    return columns.slice(0, 3);
+  };
+
+  const skillRow = (skill, index) => (
+    <div key={index} className="flex items-center gap-3 py-3">
+      <SkillIcon src={skill.icon} alt={skill.title} size="w-14 h-14" />
+      <div className="flex-1 min-w-0">
+        <p className="text-sm font-medium text-white truncate">{skill.title}</p>
+        <p className="text-xs text-gray-400 truncate">{skill.description}</p>
+      </div>
+      <button className="px-4 py-1 rounded-full bg-gray-700 text-blue-400 text-xs font-bold hover:bg-gray-600 transition-colors flex-shrink-0">
+        {skill.learned === 'TRUE' ? 'OPEN' : 'GET'}
+      </button>
+    </div>
+  );
+
+  const shelf = (title, items, seeAllTab) => (
+    <div className="border-t border-gray-800 pt-5">
+      <div className="flex items-end justify-between mb-1">
+        <p className="text-2xl font-bold text-white">{title}</p>
+        <button onClick={() => setActiveTab(seeAllTab)} className="text-sm text-blue-400 hover:underline">
+          See All
+        </button>
+      </div>
+      <div className="grid grid-cols-3 gap-x-8">
+        {toColumns(items).map((column, index) => (
+          <div key={index} className="divide-y divide-gray-800">
+            {column.map((skill, i) => skillRow(skill, i))}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 
   return (
     <Window
@@ -52,121 +107,104 @@ const AppStore = () => {
       children={
         <div className="bg-gray-900 w-full h-full flex">
           {/* Sidebar */}
-          <div className="w-64 bg-neutral-850 border-r p-4">
-            <div className="space-y-6">
-              {/* Main Navigation */}
-              <div>
-                <p className="text-xs font-semibold text-gray-500 mb-3">BROWSE</p>
-                <div className="space-y-1">
-                  {navItems.map((item) => (
-                    <button
-                      key={item.id}
-                      onClick={() => setActiveTab(item.id)}
-                      className={`w-full flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                        activeTab === item.id 
-                          ? 'bg-gray-800 text-white' 
-                          : 'text-gray-400 hover:text-white hover:bg-gray-800'
-                      }`}
-                    >
-                      {item.icon}
-                      <p>{item.label}</p>
-                    </button>
-                  ))}
-                </div>
-              </div>
+          <div className="w-56 flex-shrink-0 bg-gray-950 border-r border-gray-800 flex flex-col p-3">
+            {/* Search */}
+            <div className="flex items-center gap-2 h-7 px-2 rounded-md bg-gray-800 mb-4">
+              <IoSearch className="w-3.5 h-3.5 text-gray-400 flex-shrink-0" />
+              <input
+                type="text"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Search"
+                className="flex-1 bg-transparent text-sm text-white placeholder-gray-400 cursor-text focus:outline-none"
+              />
+            </div>
 
-              {/* Categories */}
-              <div>
-                <p className="text-xs font-semibold text-gray-500 mb-3">CATEGORIES</p>
-                <div className="space-y-1">
-                  {categories.map((category) => (
-                    <div
-                      key={category.id}
-                      className={`w-full flex items-center gap-3 px-3 py-2 rounded-md text-sm transition-colors ${
-                        selectedCategory === category.id
-                          ? 'bg-gray-800 text-white'
-                          : 'text-gray-400 hover:text-white hover:bg-gray-800'
-                      }`}
-                    >
-                      {category.icon}
-                      <p>{category.label}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
+            {/* Navigation */}
+            <div className="space-y-0.5">
+              {navItems.map((item) => (
+                <button
+                  key={item.id}
+                  onClick={() => { setActiveTab(item.id); setQuery(''); }}
+                  className={`w-full flex items-center gap-2.5 px-2 py-1.5 rounded-md text-sm transition-colors ${
+                    activeTab === item.id && !isSearching
+                      ? 'bg-gray-800 text-white'
+                      : 'text-gray-300 hover:bg-gray-800'
+                  }`}
+                >
+                  {item.icon}
+                  <p>{item.label}</p>
+                </button>
+              ))}
+            </div>
+
+            {/* Account */}
+            <div className="mt-auto flex items-center gap-2 px-2 py-2 border-t border-gray-800">
+              <div className="w-7 h-7 rounded-full bg-gray-700 flex items-center justify-center text-xs text-white">AG</div>
+              <p className="text-sm text-gray-300">Aryan Gupta</p>
             </div>
           </div>
 
           {/* Main Content */}
-          <div className="flex-1 overflow-y-auto bg-gray-850">
+          <div className="flex-1 overflow-y-auto noscrollbar">
             {loading ? (
               <div className="flex flex-col items-center justify-center h-full">
                 <MacOSLoader size={60} />
                 <p className="mt-4 text-gray-400">Loading skills...</p>
               </div>
+            ) : isSearching ? (
+              /* Search results */
+              <div className="p-6">
+                <p className="text-2xl font-bold text-white mb-2">Results for “{query}”</p>
+                {results.length === 0 ? (
+                  <p className="text-sm text-gray-400">No skills found.</p>
+                ) : (
+                  <div className="divide-y divide-gray-800">
+                    {results.map((skill, index) => skillRow(skill, index))}
+                  </div>
+                )}
+              </div>
             ) : (
               <div className="p-6">
                 {/* Discover Tab */}
                 {activeTab === 'discover' && (
-                  <div className="space-y-8">
-                    {/* Featured Section */}
+                  <div className="space-y-6">
+                    {/* Featured card */}
                     {featuredSkill && (
-                      <div className="bg-gray-800 border border-gray-700 rounded-2xl p-8">
-                        <p className="text-sm font-medium text-blue-400 mb-2">FEATURED</p>
-                        <p className="text-4xl font-bold text-white mb-3">{featuredSkill.title}</p>
-                        <p className="text-lg text-gray-300 mb-6 max-w-2xl">{featuredSkill.description}</p>
-                        <button className="bg-white text-black px-6 py-3 rounded-full font-semibold hover:scale-105 transition-transform">
-                          {featuredSkill.learned === 'TRUE' ? 'View' : 'Start Learning'}
-                        </button>
+                      <div className="rounded-2xl bg-gray-800 border border-gray-700 overflow-hidden">
+                        <div className="p-6">
+                          <p className="text-xs font-bold text-blue-400 tracking-wide mb-1">FEATURED</p>
+                          <p className="text-3xl font-bold text-white">{featuredSkill.title}</p>
+                          <p className="text-gray-300 mt-1 max-w-xl">{featuredSkill.description}</p>
+                        </div>
+                        <div className="flex items-center gap-3 px-6 py-4 bg-gray-900 border-t border-gray-700">
+                          <SkillIcon src={featuredSkill.icon} alt={featuredSkill.title} size="w-12 h-12" />
+                          <div className="flex-1">
+                            <p className="text-sm font-medium text-white">{featuredSkill.title}</p>
+                            <p className="text-xs text-gray-400">
+                              {featuredSkill.learned === 'TRUE' ? 'Mastered' : 'Currently learning'}
+                            </p>
+                          </div>
+                          <button className="px-4 py-1 rounded-full bg-gray-700 text-blue-400 text-xs font-bold hover:bg-gray-600 transition-colors">
+                            {featuredSkill.learned === 'TRUE' ? 'OPEN' : 'GET'}
+                          </button>
+                        </div>
                       </div>
                     )}
 
-                    {/* All Skills Grid */}
-                    <div>
-                      <p className="text-2xl font-bold text-white mb-4">All Skills</p>
-                      <div className="grid grid-cols-3 gap-6">
-                        {skills.map((skill, index) => (
-                          <div 
-                            key={index} 
-                            className="bg-gray-800 rounded-xl shadow-sm cursor-pointer overflow-hidden"
-                          >
-                            <div className="aspect-video bg-gray-700 flex items-center justify-center">
-                              <img src={skill.icon} alt={skill.name} className="w-20 h-20" />
-                            </div>
-                            <div className="p-4">
-                              <p className="font-semibold text-white mb-1">{skill.title}</p>
-                              <p className="text-sm text-gray-400 mb-3 line-clamp-2">{skill.description}</p>
-                              <div className="flex items-center justify-between">
-                                <p className="text-xs text-gray-500">
-                                  {skill.learned === 'TRUE' ? 'Mastered' : 'In Progress'}
-                                </p>
-                                <button className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${
-                                  skill.learned === 'TRUE'
-                                    ? 'bg-gray-700 text-gray-300 hover:bg-gray-600'
-                                    : 'bg-blue-600 text-white hover:bg-blue-700'}`}>
-                                  {skill.learned === 'TRUE' ? 'OPEN' : 'GET'}
-                                </button>
-                              </div>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
+                    {shelf('Skills I Use Every Day', mastered, 'mastered')}
+                    {shelf('Currently Learning', learning, 'learning')}
                   </div>
                 )}
 
                 {/* Mastered Tab */}
                 {activeTab === 'mastered' && (
                   <div>
-                    <p className="text-2xl font-bold text-white mb-6">Mastered Skills</p>
-                    <div className="grid grid-cols-4 gap-4">
-                      {mastered.map((skill, index) => (
-                        <div key={index} className="text-center">
-                          <div className="bg-gray-800 rounded-2xl p-4 shadow-sm cursor-pointer mb-2">
-                            <img src={skill.icon} alt={skill.name} className="w-16 h-16 mx-auto" />
-                          </div>
-                          <p className="text-sm font-medium text-white">{skill.title}</p>
-                          <p className="text-xs text-gray-500">Mastered</p>
+                    <p className="text-2xl font-bold text-white mb-2">Mastered</p>
+                    <div className="grid grid-cols-3 gap-x-8">
+                      {toColumns(mastered, Math.ceil(mastered.length / 3)).map((column, index) => (
+                        <div key={index} className="divide-y divide-gray-800">
+                          {column.map((skill, i) => skillRow(skill, i))}
                         </div>
                       ))}
                     </div>
@@ -176,23 +214,17 @@ const AppStore = () => {
                 {/* Learning Tab */}
                 {activeTab === 'learning' && (
                   <div>
-                    <p className="text-2xl font-bold text-white mb-6">Currently Learning</p>
-                    <div className="space-y-4">
+                    <p className="text-2xl font-bold text-white mb-2">Currently Learning</p>
+                    <div className="divide-y divide-gray-800">
                       {learning.map((skill, index) => (
-                        <div 
-                          key={index} 
-                          className="bg-gray-800 rounded-xl p-6 shadow-sm flex items-center gap-6"
-                        >
-                          <img src={skill.icon} alt={skill.name} className="w-16 h-16" />
-                          <div className="flex-1">
-                            <p className="font-semibold text-white mb-1">{skill.title}</p>
+                        <div key={index} className="flex items-center gap-4 py-4">
+                          <SkillIcon src={skill.icon} alt={skill.title} size="w-16 h-16" />
+                          <div className="flex-1 min-w-0">
+                            <p className="font-medium text-white">{skill.title}</p>
                             <p className="text-sm text-gray-400">{skill.description}</p>
-                            <div className="mt-3 bg-gray-700 rounded-full h-2 w-48">
-                              <div className="bg-blue-600 h-full rounded-full" style={{ width: '45%' }}></div>
-                            </div>
                           </div>
-                          <button className="px-6 py-2 bg-blue-600 text-white rounded-full font-medium hover:bg-blue-700 transition-colors">
-                            Continue
+                          <button className="px-4 py-1 rounded-full bg-gray-700 text-blue-400 text-xs font-bold hover:bg-gray-600 transition-colors flex-shrink-0">
+                            GET
                           </button>
                         </div>
                       ))}
