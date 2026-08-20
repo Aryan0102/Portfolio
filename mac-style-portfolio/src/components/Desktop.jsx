@@ -1,5 +1,6 @@
 import background from "../assets/macbg.jpg"
 import MenuBar from "./MenuBar";
+import Spotlight from "./Spotlight";
 import DocumentIcon from "../assets/documenticon.png"
 import GitHubIcon from "../assets/github.png";
 import Linkedin from "../assets/linkedin.png";
@@ -29,6 +30,8 @@ const Desktop = ({ children }) => (
         </div>
 
         {children}
+
+        <Spotlight />
     </div>
 );
 

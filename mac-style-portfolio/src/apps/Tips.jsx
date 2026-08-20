@@ -28,6 +28,11 @@ const Tips = () => {
             description: 'Each icon in the dock opens a different application showcasing various aspects of my work and skills.'
         },
         {
+            icon: <IoSearch />,
+            title: 'Search with Spotlight',
+            description: 'Press ⌘K, or click the magnifier in the menu bar, to search every app and everything inside them.'
+        },
+        {
             icon: <IoMove />,
             title: 'Drag windows around',
             description: 'Click and hold on any title bar to drag windows around the screen, just like in macOS.'

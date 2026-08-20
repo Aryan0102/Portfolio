@@ -9,7 +9,7 @@ import AppleLogo from "../assets/applelogo.png";
 const MenuBar = () => {
 
     const [currentTime, setCurrentTime] = useState(new Date());
-    const { activeWindow } = useContext(Context);
+    const { activeWindow, spotlightOpen, toggleSpotlight } = useContext(Context);
 
     useEffect(() => {
         const timer = setInterval(() => {
@@ -52,7 +52,9 @@ const MenuBar = () => {
                 <div className="flex flex-row items-center gap-4">
                     <IoIosBatteryFull className="text-white w-5 h-5 cursor-pointer" />
                     <FaWifi className="text-white w-5 h-5 cursor-pointer" />
-                    <IoSearch className="text-white w-5 h-5 cursor-pointer" />
+                    <button onClick={toggleSpotlight} className={`p-1 -m-1 rounded ${spotlightOpen ? 'bg-white/25' : ''}`}>
+                        <IoSearch className="text-white w-5 h-5 cursor-pointer" />
+                    </button>
                     <img src={ControlCenter} alt="Control Center" className="w-5 h-5 cursor-pointer" />
                     <div className='flex flex-row gap-2'>
                         <p>{formatDate(currentTime)}</p>

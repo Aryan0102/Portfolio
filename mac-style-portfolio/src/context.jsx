@@ -5,6 +5,7 @@ const Context = createContext();
 const ContextProvider = ({ children }) => {
   const [openWindows, setOpenWindows] = useState(["Tips"]);
   const [activeWindow, setActiveWindow] = useState("Tips");
+  const [spotlightOpen, setSpotlightOpen] = useState(false);
 
   const handleOpenWindow = (appName) => {
     if (!openWindows.includes(appName)) {
@@ -24,12 +25,19 @@ const ContextProvider = ({ children }) => {
     setActiveWindow(appName);
   };
 
+  const toggleSpotlight = () => setSpotlightOpen((open) => !open);
+
+  const closeSpotlight = () => setSpotlightOpen(false);
+
   const value = {
     openWindows,
     activeWindow,
     handleOpenWindow,
     handleCloseWindow,
-    focusWindow
+    focusWindow,
+    spotlightOpen,
+    toggleSpotlight,
+    closeSpotlight
   };
 
   return (
