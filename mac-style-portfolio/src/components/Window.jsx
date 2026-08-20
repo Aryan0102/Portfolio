@@ -6,10 +6,12 @@ const Window = ({appName, width, height, children}) => {
     const nodeRef = useRef(null);
     const { handleCloseWindow, openWindows, activeWindow, focusWindow } = useContext(Context);
     
-    const maxX = window.innerWidth - width;
-    const maxY = window.innerHeight - height;
-    const defaultX = Math.min(80 + openWindows.length * 20, maxX);
-    const defaultY = Math.min(80 - openWindows.length * 20, maxY);
+    const menuBarHeight = 40;
+    const maxX = Math.max(0, window.innerWidth - width);
+    const maxY = Math.max(0, window.innerHeight - menuBarHeight - height);
+    const cascade = openWindows.length * 20;
+    const defaultX = Math.min(80 + cascade, maxX);
+    const defaultY = Math.min(Math.max(80 - cascade, 0), maxY);
     const zIndex = activeWindow === appName ? 1000 : 100;
     
     return (

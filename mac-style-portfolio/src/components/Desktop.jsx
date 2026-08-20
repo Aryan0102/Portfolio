@@ -16,7 +16,7 @@ const desktopIcons = [
 ];
 
 const Desktop = ({ children }) => {
-    const { handleOpenWindow } = useContext(Context);
+    const { handleOpenWindow, brightness } = useContext(Context);
 
     const openIcon = (icon) => {
         if (icon.app) {
@@ -45,6 +45,11 @@ const Desktop = ({ children }) => {
         {children}
 
         <Spotlight />
+
+        <div
+            className="fixed inset-0 bg-black pointer-events-none z-[4000]"
+            style={{ opacity: (100 - brightness) / 200 }}
+        />
     </div>
     );
 };

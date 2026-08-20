@@ -2,7 +2,7 @@ import { useState, useEffect, useRef, useCallback, useContext } from 'react';
 import { createPortal } from 'react-dom';
 import { Context } from '../context';
 import background from "../assets/macbg.jpg";
-import { IoChevronUp, IoChevronDown } from "react-icons/io5";
+import { IoChevronUp, IoChevronDown, IoClose } from "react-icons/io5";
 import { getInformation } from "../getInfo"
 import { useLaunchTarget } from '../useLaunchTarget';
 import { MacOSLoader } from '../assets/loader';
@@ -107,6 +107,13 @@ const TimeMachine = () => {
             />
             <div className="absolute inset-0 bg-black/65" />
 
+            <button
+                onClick={exitTimeMachine}
+                className="absolute top-6 left-6 w-9 h-9 flex items-center justify-center rounded-full bg-gray-800 text-white hover:bg-gray-700 transition-colors z-[200]"
+            >
+                <IoClose className="w-5 h-5" />
+            </button>
+
             {loading ? (
                 <div className="absolute inset-0 flex flex-col items-center justify-center">
                     <MacOSLoader size={60} />
@@ -115,12 +122,6 @@ const TimeMachine = () => {
             ) : experiences.length === 0 ? (
                 <div className="absolute inset-0 flex flex-col items-center justify-center">
                     <p className="text-white">No snapshots available.</p>
-                    <button
-                        onClick={exitTimeMachine}
-                        className="mt-4 px-5 py-2 rounded-full bg-white text-black text-sm font-medium hover:bg-gray-200 transition-colors"
-                    >
-                        Cancel
-                    </button>
                 </div>
             ) : (
                 <>
@@ -173,15 +174,9 @@ const TimeMachine = () => {
                         ))}
                     </div>
 
-                    <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-[200]">
-                        <button
-                            onClick={exitTimeMachine}
-                            className="px-5 py-2 rounded-full bg-white text-black text-sm font-medium hover:bg-gray-200 transition-colors"
-                        >
-                            Cancel
-                        </button>
-                        <p className="text-xs text-gray-400">Use the arrows or press ↑ / ↓ to travel, Esc to leave</p>
-                    </div>
+                    <p className="absolute bottom-8 left-1/2 -translate-x-1/2 text-xs text-gray-400 z-[200]">
+                        Use the arrows or press ↑ / ↓ to travel, Esc to leave
+                    </p>
                 </>
             )}
         </div>,

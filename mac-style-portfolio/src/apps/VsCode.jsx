@@ -108,8 +108,8 @@ const VsCode = () => {
                     <div className="flex flex-wrap gap-3 mb-8">
                       {currentProject?.tech.split(", ").map((tech) => {
                         return (
-                          <div key={tech} className="flex items-center bg-blue-500 px-4 py-2 rounded-lg">
-                            <p className="text-sm font-medium text-white">{tech}</p>
+                          <div key={tech} className="flex items-center bg-gray-700 px-3 py-1.5 rounded-lg">
+                            <p className="text-sm text-gray-200">{tech}</p>
                           </div>
                         );
                       })}
