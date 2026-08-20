@@ -8,6 +8,7 @@ import MailIcon from './assets/mailicon.png'
 import MapsIcon from './assets/mapsicon.png'
 import RemindersIcon from './assets/remindersicon.png'
 import MatlabIcon from './assets/matlabicon.png'
+import PreviewIcon from './assets/previewicon.png'
 
 export const apps = [
   { name: 'Tips', icon: TipsIcon },
@@ -19,7 +20,8 @@ export const apps = [
   { name: 'Mail', icon: MailIcon },
   { name: 'Maps', icon: MapsIcon },
   { name: 'Reminders', icon: RemindersIcon },
-  { name: 'Matlab', icon: MatlabIcon }
+  { name: 'Matlab', icon: MatlabIcon },
+  { name: 'Preview', icon: PreviewIcon }
 ]
 
 export const getAppIcon = (name) => apps.find((app) => app.name === name)?.icon

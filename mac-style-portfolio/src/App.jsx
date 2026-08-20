@@ -10,6 +10,7 @@ import Mail from "./apps/Mail"
 import Maps from "./apps/Maps"
 import Reminders from "./apps/Reminders"
 import Matlab from "./apps/Matlab"
+import Preview from "./apps/Preview"
 import { Context } from "./context"
 import { useContext } from "react"
 
@@ -34,6 +35,7 @@ function App() {
             {openWindows.includes("Maps") ? <Maps /> : null}
             {openWindows.includes("Reminders") ? <Reminders /> : null}
             {openWindows.includes("Matlab") ? <Matlab /> : null}
+            {openWindows.includes("Preview") ? <Preview /> : null}
 
           </div>
         }

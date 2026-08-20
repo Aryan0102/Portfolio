@@ -11,6 +11,7 @@ import AppStoreIcon from '../assets/appstore.png';
 import MapsIcon from "../assets/mapsicon.png";
 import RemindersIcon from "../assets/remindersicon.png"
 import MatlabIcon from "../assets/matlabicon.png"
+import PreviewIcon from "../assets/previewicon.png"
 import { getInformation } from "../getInfo"
 import { useLaunchTarget } from '../useLaunchTarget';
 import { MacOSLoader } from '../assets/loader';
@@ -60,7 +61,8 @@ const Tips = () => {
             'AppStoreIcon': AppStoreIcon,
             'MapsIcon': MapsIcon,
             'RemindersIcon': RemindersIcon,
-            'MatlabIcon': MatlabIcon
+            'MatlabIcon': MatlabIcon,
+            'PreviewIcon': PreviewIcon
         };
 
         return iconMap[iconName] || TipsIcon;
@@ -76,7 +78,8 @@ const Tips = () => {
             'AppStoreIcon': 'App Store',
             'MapsIcon': 'Maps',
             'RemindersIcon': 'Reminders',
-            'MatlabIcon': 'Matlab'
+            'MatlabIcon': 'Matlab',
+            'PreviewIcon': 'Preview'
         };
 
         return windowMap[iconName] || 'Tips';
