@@ -1,13 +1,18 @@
-import { useState, useEffect } from 'react';
-import Window from "../components/Window";
-import { IoChevronBack, IoChevronForward } from "react-icons/io5";
+import { useState, useEffect, useRef, useCallback, useContext } from 'react';
+import { createPortal } from 'react-dom';
+import { Context } from '../context';
+import background from "../assets/macbg.jpg";
+import { IoChevronUp, IoChevronDown } from "react-icons/io5";
 import { getInformation } from "../getInfo"
 import { MacOSLoader } from '../assets/loader';
 
 const TimeMachine = () => {
-    const [activeIndex, setActiveIndex] = useState(0);
+    const { handleCloseWindow } = useContext(Context);
     const [experiences, setExperience] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [browseIndex, setBrowseIndex] = useState(0);
+    const [visible, setVisible] = useState(false);
+    const exitTimeout = useRef(null);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -24,96 +29,167 @@ const TimeMachine = () => {
         fetchData();
     }, []);
 
-    return (
-        <Window
-            appName="Time Machine"
-            width={900}
-            height={650}
-            children={
-                <div className="bg-gray-900 w-full h-full flex flex-col">
-                    {loading ? (
-                        <div className="flex-1 flex flex-col items-center justify-center">
-                            <MacOSLoader size={60} />
-                            <p className="mt-4 text-gray-400">Loading experiences...</p>
+    // Fade and pull the stack in on the frame after mount so the transition runs
+    useEffect(() => {
+        const frame = requestAnimationFrame(() => setVisible(true));
+        return () => {
+            cancelAnimationFrame(frame);
+            clearTimeout(exitTimeout.current);
+        };
+    }, []);
+
+    const exitTimeMachine = useCallback(() => {
+        setVisible(false);
+        exitTimeout.current = setTimeout(() => handleCloseWindow("Time Machine"), 400);
+    }, [handleCloseWindow]);
+
+    // Older snapshots sit further back in the stack, so travelling back in time
+    // means moving down the array
+    const goBackInTime = () => setBrowseIndex((index) => Math.min(experiences.length - 1, index + 1));
+    const goForwardInTime = () => setBrowseIndex((index) => Math.max(0, index - 1));
+
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            if (e.key === 'Escape') exitTimeMachine();
+            if (e.key === 'ArrowUp') setBrowseIndex((index) => Math.min(experiences.length - 1, index + 1));
+            if (e.key === 'ArrowDown') setBrowseIndex((index) => Math.max(0, index - 1));
+        };
+
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [experiences.length, exitTimeMachine]);
+
+    const snapshotCard = (experience, depth) => (
+        <div
+            className="absolute left-1/2 top-1/2 w-[620px] rounded-xl border border-gray-700 bg-gray-900 shadow-2xl overflow-hidden transition-all duration-500"
+            style={{
+                transform: `translate(-50%, -50%) translateY(${-depth * 34}px) scale(${1 - depth * 0.07})`,
+                filter: depth === 0 ? 'none' : `brightness(${Math.max(0.2, 0.55 - (depth - 1) * 0.12)})`,
+                zIndex: 100 - depth
+            }}
+        >
+            {/* Snapshot title bar */}
+            <div className="flex items-center gap-2 px-3 py-2 bg-gray-800 border-b border-gray-700">
+                <div className="w-3 h-3 rounded-full bg-gray-600"></div>
+                <div className="w-3 h-3 rounded-full bg-gray-600"></div>
+                <div className="w-3 h-3 rounded-full bg-gray-600"></div>
+                <p className="flex-1 text-center text-sm text-gray-300">{experience.date}</p>
+            </div>
+
+            <img src={experience.image} alt={experience.company} className="w-full h-40 object-cover" />
+
+            <div className="p-5">
+                <p className="text-2xl font-bold text-white">{experience.company}</p>
+                <p className="text-lg text-gray-300 mt-0.5">{experience.role}</p>
+
+                <div className="flex flex-wrap gap-2 mt-4">
+                    {(experience.tech || '').split(", ").map((item, i) => (
+                        <div key={i} className={`px-3 py-1.5 ${experience.color} bg-opacity-50 text-gray-200 rounded-lg text-sm`}>
+                            {item}
                         </div>
-                    ) : (
-                        <>
-                            {/* Navigation */}
-                            <div className="p-4 bg-gray-900 border-b border-gray-800 flex items-center justify-between">
-                                <h1 className="text-xl font-semibold text-white">Work Experience</h1>
-                                <div className="flex gap-2">
-                                    <button
-                                        onClick={() => setActiveIndex(Math.max(0, activeIndex - 1))}
-                                        className="p-2 bg-gray-800 text-white rounded-lg hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                                        disabled={activeIndex === 0}
-                                    >
-                                        <IoChevronBack />
-                                    </button>
-                                    <button
-                                        onClick={() => setActiveIndex(Math.min(experiences.length - 1, activeIndex + 1))}
-                                        className="p-2 bg-gray-800 text-white rounded-lg hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                                        disabled={activeIndex === experiences.length - 1}
-                                    >
-                                        <IoChevronForward />
-                                    </button>
-                                </div>
-                            </div>
-
-                            {/* Timeline dots */}
-                            <div className="px-4 mt-3 mb-1 flex justify-center gap-2 bg-gray-900">
-                                {experiences.map((dot, index) => (
-                                    <button
-                                        key={index}
-                                        onClick={() => setActiveIndex(index)}
-                                        className={`w-3 h-3 rounded-full transition-all ${index === activeIndex ? experiences[index].color : 'bg-gray-700'}`}
-                                    />
-                                ))}
-                            </div>
-
-                            {/* Content */}
-                            <div className="p-6 bg-gray-900">
-                                <div className="bg-gray-800/50 backdrop-blur rounded-xl overflow-hidden h-full shadow-2xl">
-                                    <img
-                                        src={experiences[activeIndex].image}
-                                        alt={experiences[activeIndex].company}
-                                        className="w-full h-70 object-cover"
-                                    />
-                                    <div className="p-6">
-                                        <div className="mb-2">
-                                            <p className="text-white mb-1 flex items-center justify-between gap-2">
-                                                <p className='text-2xl font-bold'>{experiences[activeIndex].company}</p>
-                                                <div className={`text-sm text-white py-1 px-2 ${experiences[activeIndex].color} bg-opacity-50 rounded-lg`}>
-                                                    {experiences[activeIndex].date}
-                                                </div>
-                                            </p>
-                                            <div className="flex items-center gap-3">
-                                                <p className="text-lg text-gray-300">
-                                                    {experiences[activeIndex].role}
-                                                </p>
-                                            </div>
-                                        </div>
-
-                                        <div className="flex flex-wrap gap-2 mb-6">
-                                            {experiences[activeIndex].tech.split(", ").map((item, i) => (
-                                                <div key={i} className={`px-3 py-1.5 ${experiences[activeIndex].color} bg-opacity-50 text-gray-200 rounded-lg text-sm backdrop-blur`}>
-                                                    {item}
-                                                </div>
-                                            ))}
-                                        </div>
-
-                                        <div className="bg-gray-900/50 rounded-lg p-4">
-                                            <p className="text-gray-300">
-                                                {experiences[activeIndex].description}
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </>
-                    )}
+                    ))}
                 </div>
-            }
-        />
+
+                <p className="text-gray-300 mt-4 leading-relaxed">{experience.description}</p>
+            </div>
+        </div>
+    );
+
+    return createPortal(
+        <div
+            className={`fixed inset-0 z-[2000] overflow-hidden select-none transition-opacity duration-500 ${visible ? 'opacity-100' : 'opacity-0'}`}
+        >
+            {/* The desktop wallpaper, blurring out as the state opens */}
+            <div
+                className={`absolute inset-0 bg-cover bg-center transition-all duration-700 ${visible ? 'blur-2xl scale-110' : 'blur-none scale-100'}`}
+                style={{ backgroundImage: `url(${background})` }}
+            />
+            <div className="absolute inset-0 bg-black/65" />
+
+            {loading ? (
+                <div className="absolute inset-0 flex flex-col items-center justify-center">
+                    <MacOSLoader size={60} />
+                    <p className="mt-4 text-gray-400">Loading experiences...</p>
+                </div>
+            ) : experiences.length === 0 ? (
+                <div className="absolute inset-0 flex flex-col items-center justify-center">
+                    <p className="text-white">No snapshots available.</p>
+                    <button
+                        onClick={exitTimeMachine}
+                        className="mt-4 px-5 py-2 rounded-full bg-white text-black text-sm font-medium hover:bg-gray-200 transition-colors"
+                    >
+                        Cancel
+                    </button>
+                </div>
+            ) : (
+                <>
+                    {/* Receding stack of snapshots */}
+                    <div className={`absolute inset-0 transition-transform duration-500 ${visible ? 'scale-100' : 'scale-110'}`}>
+                        {experiences.slice(browseIndex, browseIndex + 5).map((experience, depth) => (
+                            <div key={browseIndex + depth}>
+                                {snapshotCard(experience, depth)}
+                            </div>
+                        ))}
+                    </div>
+
+                    {/* Travel arrows, alongside the timeline like the real app */}
+                    <div className="absolute top-1/2 left-1/2 ml-[330px] -translate-y-1/2 flex flex-col items-center gap-2 z-[200]">
+                        <button
+                            onClick={goBackInTime}
+                            disabled={browseIndex === experiences.length - 1}
+                            className="w-10 h-10 flex items-center justify-center rounded-lg bg-gray-800 text-white hover:bg-gray-700 disabled:opacity-30 transition-colors"
+                        >
+                            <IoChevronUp />
+                        </button>
+                        <button
+                            onClick={goForwardInTime}
+                            disabled={browseIndex === 0}
+                            className="w-10 h-10 flex items-center justify-center rounded-lg bg-gray-800 text-white hover:bg-gray-700 disabled:opacity-30 transition-colors"
+                        >
+                            <IoChevronDown />
+                        </button>
+                    </div>
+
+                    {/* Snapshot timeline down the right edge */}
+                    <div className="absolute right-0 top-0 bottom-0 w-56 flex flex-col justify-center gap-1 pr-3 z-[200]">
+                        {experiences.map((experience, index) => (
+                            <div key={index}>
+                                <button
+                                    onClick={() => setBrowseIndex(index)}
+                                    className="w-full flex items-center justify-end gap-3 group"
+                                >
+                                    <p className={`text-sm transition-colors ${index === browseIndex ? 'text-white' : 'text-gray-400 group-hover:text-gray-200'}`}>
+                                        {experience.date}
+                                    </p>
+                                    <div className={`h-px transition-all ${index === browseIndex ? 'w-10 bg-white' : 'w-5 bg-gray-500 group-hover:bg-gray-300'}`} />
+                                </button>
+
+                                {/* Filler ticks, like the minor backup marks in the real timeline */}
+                                {index < experiences.length - 1 && (
+                                    <div className="flex flex-col items-end gap-1 py-1">
+                                        {[0, 1, 2].map((tick) => (
+                                            <div key={tick} className="w-2.5 h-px bg-gray-600" />
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
+                        ))}
+                    </div>
+
+                    {/* Exit */}
+                    <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-[200]">
+                        <button
+                            onClick={exitTimeMachine}
+                            className="px-5 py-2 rounded-full bg-white text-black text-sm font-medium hover:bg-gray-200 transition-colors"
+                        >
+                            Cancel
+                        </button>
+                        <p className="text-xs text-gray-400">Use the arrows or press ↑ / ↓ to travel, Esc to leave</p>
+                    </div>
+                </>
+            )}
+        </div>,
+        document.body
     );
 };
 
