@@ -167,7 +167,7 @@ const Spotlight = () => {
             onMouseDown={closeSpotlight}
         >
             <div
-                className="w-[680px] h-fit rounded-2xl vibrancy border border-white/15 shadow-2xl overflow-hidden"
+                className="w-[680px] max-w-[92vw] h-fit rounded-2xl vibrancy border border-white/15 shadow-2xl overflow-hidden"
                 onMouseDown={(e) => e.stopPropagation()}
             >
                 <div className="flex items-center gap-3 px-4 h-16 bg-black/25">
