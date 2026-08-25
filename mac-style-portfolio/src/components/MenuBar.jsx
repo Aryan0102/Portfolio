@@ -126,9 +126,9 @@ const MenuBar = () => {
                         </button>
 
                         {controlOpen && (
-                            <div className="absolute top-full right-0 mt-2 w-[330px] p-3 bg-[#2c2c2e] border border-white/10 rounded-xl shadow-2xl">
+                            <div className="absolute top-full right-0 mt-3 w-[330px] p-3 bg-white/10 backdrop-blur-2xl border border-white/20 rounded-xl shadow-2xl">
                                 <div className="flex gap-3">
-                                    <div className="flex-1 rounded-xl bg-white/10 p-3 space-y-3">
+                                    <div className="flex-1 rounded-xl bg-white/15 p-3 space-y-3">
                                         {toggleRow(<FaWifi className="w-3.5 h-3.5" />, "Wi-Fi", wifiOn ? "Aryan's Wi-Fi" : "Off", wifiOn, () => setWifiOn(!wifiOn))}
                                         {toggleRow(<FaBluetoothB className="w-3.5 h-3.5" />, "Bluetooth", bluetoothOn ? "On" : "Off", bluetoothOn, () => setBluetoothOn(!bluetoothOn))}
                                         {toggleRow(<IoShareSocial className="w-3.5 h-3.5" />, "AirDrop", airdropOn ? "Contacts Only" : "Off", airdropOn, () => setAirdropOn(!airdropOn))}
@@ -137,25 +137,25 @@ const MenuBar = () => {
                                     <div className="w-[38%] flex flex-col gap-3">
                                         <button
                                             onClick={() => setFocusOn(!focusOn)}
-                                            className="flex-1 rounded-xl bg-white/10 p-3 flex flex-col items-start justify-center gap-1.5"
+                                            className="flex-1 rounded-xl bg-white/15 p-3 flex flex-col items-start justify-center gap-1.5"
                                         >
                                             {iconCircle(<IoMoon className="w-3.5 h-3.5" />, focusOn)}
                                             <p className="text-[11px] text-white">Focus</p>
                                         </button>
 
-                                        <div className="flex-1 rounded-xl bg-white/10 p-3 flex flex-col items-start justify-center gap-1.5">
+                                        <div className="flex-1 rounded-xl bg-white/15 p-3 flex flex-col items-start justify-center gap-1.5">
                                             {iconCircle(<IoTv className="w-3.5 h-3.5" />, false)}
                                             <p className="text-[11px] text-white/50 leading-tight">Screen Mirroring</p>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div className="mt-3 rounded-xl bg-white/10 p-3">
+                                <div className="mt-3 rounded-xl bg-white/15 p-3">
                                     <p className="text-[11px] text-white/60 mb-2">Display</p>
                                     {slider(<IoSunny className="w-4 h-4" />, brightness, setBrightness, 40)}
                                 </div>
 
-                                <div className="mt-3 rounded-xl bg-white/10 p-3">
+                                <div className="mt-3 rounded-xl bg-white/15 p-3">
                                     <p className="text-[11px] text-white/60 mb-2">Sound</p>
                                     {slider(<IoVolumeHigh className="w-4 h-4" />, volume, setVolume, 0)}
                                 </div>
