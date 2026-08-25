@@ -201,7 +201,7 @@ const Spotlight = () => {
                                         <button
                                             key={`${result.category}-${result.title}-${position}`}
                                             ref={(node) => { rowRefs.current[position] = node; }}
-                                            onMouseEnter={() => setSelected(position)}
+                                            onMouseMove={() => position !== selected && setSelected(position)}
                                             onClick={() => openResult(result)}
                                             className={`w-full flex items-center gap-3 px-2 py-1.5 rounded-md text-left transition-colors ${
                                                 position === selected ? 'bg-blue-600' : 'hover:bg-gray-800'
