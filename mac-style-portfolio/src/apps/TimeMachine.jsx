@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useCallback, useContext } from 'react';
 import { createPortal } from 'react-dom';
 import { Context } from '../context';
-import background from "../assets/macbg.jpg";
+import background from "../assets/optimized/macbg.webp";
 import { IoChevronUp, IoChevronDown, IoClose } from "react-icons/io5";
 import { getInformation } from "../getInfo"
 import { useLaunchTarget } from '../useLaunchTarget';

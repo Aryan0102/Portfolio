@@ -1,12 +1,12 @@
 import { useContext } from "react";
 import { Context } from "../context";
-import background from "../assets/macbg.jpg"
+import background from "../assets/optimized/macbg.webp"
 import MenuBar from "./MenuBar";
 import Spotlight from "./Spotlight";
-import DocumentIcon from "../assets/documenticon.png"
-import GitHubIcon from "../assets/github.png";
-import Linkedin from "../assets/linkedin.png";
-import ReturnIcon from "../assets/returnicon.png";
+import DocumentIcon from "../assets/optimized/documenticon.webp"
+import GitHubIcon from "../assets/optimized/github.webp";
+import Linkedin from "../assets/optimized/linkedin.webp";
+import ReturnIcon from "../assets/optimized/returnicon.webp";
 
 const desktopIcons = [
     { name: 'Resume.pdf', image: DocumentIcon, app: "Preview", size: 13 },

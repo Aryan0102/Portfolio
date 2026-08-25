@@ -1,10 +1,10 @@
 import { useState, useEffect, useRef, useContext } from 'react';
-import ControlCenter from "../assets/controlcenter.png";
+import ControlCenter from "../assets/optimized/controlcenter.webp";
 import { IoSearch, IoSunny, IoVolumeHigh, IoShareSocial, IoMoon, IoTv } from "react-icons/io5";
 import { FaWifi, FaBluetoothB } from "react-icons/fa";
 import { IoIosBatteryFull } from "react-icons/io";
 import { Context } from '../context';
-import AppleLogo from "../assets/applelogo.png";
+import AppleLogo from "../assets/optimized/applelogo.webp";
 
 const MenuBar = () => {
 

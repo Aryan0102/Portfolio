@@ -1,17 +1,17 @@
 import React, { useState, useEffect, useContext } from 'react';
 import Window from "../components/Window";
 import { Context } from '../context';
-import TipsIcon from "../assets/tipsicon.png"
-import VSCodeIcon from '../assets/vscodeicon.png';
-import ContactsIcon from '../assets/contactsicon.png';
-import MailIcon from '../assets/mailicon.png';
-import SafariIcon from '../assets/safari.png';
-import TimeMachineIcon from '../assets/timemachine.png';
-import AppStoreIcon from '../assets/appstore.png';
-import MapsIcon from "../assets/mapsicon.png";
-import RemindersIcon from "../assets/remindersicon.png"
-import MatlabIcon from "../assets/matlabicon.png"
-import PreviewIcon from "../assets/previewicon.png"
+import TipsIcon from "../assets/optimized/tipsicon.webp"
+import VSCodeIcon from '../assets/optimized/vscodeicon.webp';
+import ContactsIcon from '../assets/optimized/contactsicon.webp';
+import MailIcon from '../assets/optimized/mailicon.webp';
+import SafariIcon from '../assets/optimized/safari.webp';
+import TimeMachineIcon from '../assets/optimized/timemachine.webp';
+import AppStoreIcon from '../assets/optimized/appstore.webp';
+import MapsIcon from "../assets/optimized/mapsicon.webp";
+import RemindersIcon from "../assets/optimized/remindersicon.webp"
+import MatlabIcon from "../assets/optimized/matlabicon.webp"
+import PreviewIcon from "../assets/optimized/previewicon.webp"
 import { getInformation } from "../getInfo"
 import { useLaunchTarget } from '../useLaunchTarget';
 import { MacOSLoader } from '../assets/loader';
