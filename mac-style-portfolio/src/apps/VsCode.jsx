@@ -4,6 +4,7 @@ import { VscFiles, VscSearch, VscSourceControl, VscDebugAlt, VscExtensions, VscS
 import { getInformation } from "../getInfo"
 import { useLaunchTarget } from '../useLaunchTarget';
 import { MacOSLoader } from '../assets/loader';
+import RemoteImage from '../components/RemoteImage';
 
 const VsCode = () => {
   const [activeFile, setActiveFile] = useState(0);
@@ -29,6 +30,14 @@ const VsCode = () => {
     const index = projects.findIndex((project) => project.title === title);
     if (index >= 0) setActiveFile(index);
   });
+
+  useEffect(() => {
+    projects.forEach((project) => {
+      if (!project.image) return;
+      const image = new Image();
+      image.src = project.image;
+    });
+  }, [projects]);
 
   const currentProject = projects[activeFile];
 
@@ -116,10 +125,12 @@ const VsCode = () => {
                     </div>
 
                     {/* Image */}
-                    <img
+                    <RemoteImage
                         src={currentProject.image}
                         alt={currentProject.title}
-                        className="w-full h-full object-cover mb-8 rounded-lg"
+                        wrapperClassName="w-full aspect-video mb-8 rounded-lg"
+                        className="w-full h-full object-cover"
+                        loaderSize={40}
                     />
 
                     {/* Description */}

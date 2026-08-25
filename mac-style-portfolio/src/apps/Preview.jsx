@@ -1,5 +1,6 @@
 import Window from "../components/Window";
 import { IoOpenOutline } from "react-icons/io5";
+import RemoteFrame from "../components/RemoteFrame";
 
 const resumeFileId = "1J1yFZATeR6sxBMH143N0Vv1WXLmYM8aI";
 
@@ -21,10 +22,11 @@ const Preview = () => (
                     </button>
                 </div>
 
-                <iframe
+                <RemoteFrame
                     src={`https://drive.google.com/file/d/${resumeFileId}/preview`}
                     title="Resume.pdf"
-                    className="flex-1 w-full border-0 bg-gray-800"
+                    wrapperClassName="flex-1 w-full bg-gray-800"
+                    className="w-full h-full border-0"
                 />
             </div>
         }

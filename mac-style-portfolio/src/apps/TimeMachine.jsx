@@ -6,6 +6,7 @@ import { IoChevronUp, IoChevronDown, IoClose } from "react-icons/io5";
 import { getInformation } from "../getInfo"
 import { useLaunchTarget } from '../useLaunchTarget';
 import { MacOSLoader } from '../assets/loader';
+import RemoteImage from '../components/RemoteImage';
 
 const TimeMachine = () => {
     const { handleCloseWindow } = useContext(Context);
@@ -43,6 +44,14 @@ const TimeMachine = () => {
         };
     }, []);
 
+    useEffect(() => {
+        experiences.forEach((experience) => {
+            if (!experience.image) return;
+            const image = new Image();
+            image.src = experience.image;
+        });
+    }, [experiences]);
+
     const exitTimeMachine = useCallback(() => {
         setVisible(false);
         exitTimeout.current = setTimeout(() => handleCloseWindow("Time Machine"), 400);
@@ -78,7 +87,12 @@ const TimeMachine = () => {
                 <p className="flex-1 text-center text-sm text-gray-300">{experience.date}</p>
             </div>
 
-            <img src={experience.image} alt={experience.company} className="w-full h-40 object-cover" />
+            <RemoteImage
+                src={experience.image}
+                alt={experience.company}
+                wrapperClassName="w-full h-40"
+                className="w-full h-full object-cover"
+            />
 
             <div className="p-5">
                 <p className="text-2xl font-bold text-white">{experience.company}</p>

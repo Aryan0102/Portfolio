@@ -5,6 +5,7 @@ import { IoIosRefresh } from "react-icons/io";
 import { getInformation } from "../getInfo"
 import { useLaunchTarget } from '../useLaunchTarget';
 import { MacOSLoader } from '../assets/loader';
+import RemoteFrame from '../components/RemoteFrame';
 
 const Safari = () => {
   const [activeTab, setActiveTab] = useState(0);
@@ -94,14 +95,13 @@ const Safari = () => {
               </div>
 
               {/* Iframe Content */}
-              <div className="w-full h-full">
-                <iframe
-                  src={pages[activeTab].url}
-                  className="w-full h-full border-0"
-                  title={pages[activeTab].title}
-                  sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
-                />
-              </div>
+              <RemoteFrame
+                src={pages[activeTab].url}
+                title={pages[activeTab].title}
+                wrapperClassName="w-full h-full"
+                className="w-full h-full border-0"
+                sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
+              />
             </>
           )}
         </div>
