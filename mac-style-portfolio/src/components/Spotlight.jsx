@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useContext } from 'react';
 import { Context } from '../context';
 import { apps, getAppIcon } from '../appList';
+import { desktopItems } from '../desktopItems';
 import { getInformation } from '../getInfo';
 import { IoSearch } from "react-icons/io5";
 
@@ -58,6 +59,7 @@ const Spotlight = () => {
                             subtitle: source.subtitle(row) || '',
                             category: source.category,
                             app: source.app,
+                            target: title,
                             icon: getAppIcon(source.app)
                         });
                     });
@@ -90,13 +92,25 @@ const Spotlight = () => {
         : apps
     ).map((app) => ({ title: app.name, subtitle: 'Application', category: 'Applications', app: app.name, icon: app.icon }));
 
+    const shortcutMatches = (search
+        ? desktopItems.filter((item) => item.name.toLowerCase().includes(search))
+        : []
+    ).map((item) => ({
+        title: item.name,
+        subtitle: item.link ? new URL(item.link).hostname.replace('www.', '') : item.app,
+        category: 'Shortcuts',
+        app: item.app,
+        link: item.link,
+        icon: item.image
+    }));
+
     const contentMatches = search
         ? index
             .filter((entry) => entry.title.toLowerCase().includes(search) || entry.subtitle.toLowerCase().includes(search))
             .sort((a, b) => Number(b.title.toLowerCase().includes(search)) - Number(a.title.toLowerCase().includes(search)))
         : [];
 
-    const results = [...appMatches, ...contentMatches].slice(0, 20);
+    const results = [...appMatches, ...shortcutMatches, ...contentMatches].slice(0, 20);
 
     const sections = [];
     results.forEach((result) => {
@@ -118,7 +132,13 @@ const Spotlight = () => {
 
     const openResult = (result) => {
         if (!result) return;
-        handleOpenWindow(result.app, result.category === 'Applications' ? null : result.title);
+
+        if (result.link) {
+            window.open(result.link, '_blank');
+        } else {
+            handleOpenWindow(result.app, result.target);
+        }
+
         closeSpotlight();
     };
 

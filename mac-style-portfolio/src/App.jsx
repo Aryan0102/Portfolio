@@ -12,11 +12,35 @@ import Reminders from "./apps/Reminders"
 import Matlab from "./apps/Matlab"
 import Preview from "./apps/Preview"
 import { Context } from "./context"
-import { useContext } from "react"
+import { getInformation } from "./getInfo"
+import { useContext, useEffect } from "react"
 
 function App() {
 
   const { openWindows } = useContext(Context)
+
+  useEffect(() => {
+    const preloadImages = async () => {
+      const sheets = await Promise.all([getInformation("Projects"), getInformation("Experience")])
+
+      sheets.flat().forEach((row) => {
+        if (!row.image) return
+
+        const image = new Image()
+        image.fetchPriority = "low"
+        image.decoding = "async"
+        image.src = row.image
+      })
+    }
+
+    if ('requestIdleCallback' in window) {
+      const handle = requestIdleCallback(preloadImages)
+      return () => cancelIdleCallback(handle)
+    }
+
+    const timer = setTimeout(preloadImages, 2000)
+    return () => clearTimeout(timer)
+  }, [])
 
   return (
     <div>

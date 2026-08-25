@@ -3,17 +3,7 @@ import { Context } from "../context";
 import background from "../assets/optimized/macbg.webp"
 import MenuBar from "./MenuBar";
 import Spotlight from "./Spotlight";
-import DocumentIcon from "../assets/optimized/documenticon.webp"
-import GitHubIcon from "../assets/optimized/github.webp";
-import Linkedin from "../assets/optimized/linkedin.webp";
-import ReturnIcon from "../assets/optimized/returnicon.webp";
-
-const desktopIcons = [
-    { name: 'Resume.pdf', image: DocumentIcon, app: "Preview", size: 13 },
-    { name: 'GitHub', image: GitHubIcon, link: "https://github.com/Aryan0102", size: 13 },
-    { name: 'LinkedIn', image: Linkedin, link: "https://www.linkedin.com/in/aryangupta0102/", size: 12 },
-    { name: 'Return', image: ReturnIcon, link: "https://classic.aryan-sgupta.com", size: 12 },
-];
+import { desktopItems } from "../desktopItems";
 
 const Desktop = ({ children }) => {
     const { handleOpenWindow, brightness } = useContext(Context);
@@ -34,7 +24,7 @@ const Desktop = ({ children }) => {
         <MenuBar />
 
         <div className="absolute top-20 right-10 space-y-4">
-            {desktopIcons.map((icon) => (
+            {desktopItems.map((icon) => (
                 <div key={icon.name} className="flex flex-col items-center gap-2" onClick={() => openIcon(icon)}>
                     <img style={{ width: icon.size * 4}} className={`aspect-square`} src={icon.image} alt={icon.name} />
                     <p className="text-white font-semibold">{icon.name}</p>

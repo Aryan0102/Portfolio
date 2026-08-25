@@ -1,11 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { MacOSLoader } from '../assets/loader';
 
 const RemoteImage = ({ src, alt, className, wrapperClassName, loaderSize = 32 }) => {
     const [loaded, setLoaded] = useState(false);
+    const imageRef = useRef(null);
 
     useEffect(() => {
-        setLoaded(false);
+        setLoaded(Boolean(imageRef.current?.complete));
     }, [src]);
 
     return (
@@ -17,6 +18,7 @@ const RemoteImage = ({ src, alt, className, wrapperClassName, loaderSize = 32 })
             )}
 
             <img
+                ref={imageRef}
                 src={src}
                 alt={alt}
                 onLoad={() => setLoaded(true)}
