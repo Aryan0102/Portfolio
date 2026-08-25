@@ -167,11 +167,11 @@ const Spotlight = () => {
             onMouseDown={closeSpotlight}
         >
             <div
-                className="w-[680px] h-fit rounded-2xl bg-gray-900 border border-gray-700 shadow-2xl overflow-hidden"
+                className="w-[680px] h-fit rounded-2xl vibrancy border border-white/15 shadow-2xl overflow-hidden"
                 onMouseDown={(e) => e.stopPropagation()}
             >
-                <div className="flex items-center gap-3 px-4 h-16">
-                    <IoSearch className="w-6 h-6 text-gray-400 flex-shrink-0" />
+                <div className="flex items-center gap-3 px-4 h-16 bg-black/25">
+                    <IoSearch className="w-6 h-6 text-white/60 flex-shrink-0" />
                     <input
                         ref={inputRef}
                         type="text"
@@ -179,20 +179,20 @@ const Spotlight = () => {
                         onChange={(e) => setQuery(e.target.value)}
                         onKeyDown={handleInputKeyDown}
                         placeholder="Spotlight Search"
-                        className="flex-1 bg-transparent text-2xl text-white placeholder-gray-500 cursor-text focus:outline-none"
+                        className="flex-1 bg-transparent text-2xl text-white placeholder-white/50 cursor-text focus:outline-none"
                     />
-                    <p className="text-xs text-gray-500 flex-shrink-0">⌘K</p>
+                    <p className="text-xs text-white/70 flex-shrink-0">⌘K</p>
                 </div>
 
-                <div className="max-h-[340px] overflow-auto noscrollbar border-t border-gray-800 p-2">
+                <div className="max-h-[340px] overflow-auto noscrollbar border-t border-white/10 p-2 bg-black/25">
                     {results.length === 0 ? (
-                        <p className="text-sm text-gray-400 px-2 py-3">
+                        <p className="text-sm text-white/60 px-2 py-3">
                             {indexing ? 'Indexing…' : `No results for “${query}”`}
                         </p>
                     ) : (
                         sections.map((section) => (
                             <div key={section.category}>
-                                <p className="px-2 pt-2 pb-1 text-xs font-semibold text-gray-500">{section.category}</p>
+                                <p className="px-2 pt-2 pb-1 text-xs font-semibold text-white/70">{section.category}</p>
                                 {section.items.map((result) => {
                                     rowIndex += 1;
                                     const position = rowIndex;
@@ -204,12 +204,12 @@ const Spotlight = () => {
                                             onMouseMove={() => position !== selected && setSelected(position)}
                                             onClick={() => openResult(result)}
                                             className={`w-full flex items-center gap-3 px-2 py-1.5 rounded-md text-left transition-colors ${
-                                                position === selected ? 'bg-blue-600' : 'hover:bg-gray-800'
+                                                position === selected ? 'bg-[#0a84ff]' : 'hover:bg-white/10'
                                             }`}
                                         >
                                             <img src={result.icon} alt={result.app} className="w-6 h-6 flex-shrink-0" />
                                             <p className="text-sm text-white truncate">{result.title}</p>
-                                            <p className={`flex-1 text-xs truncate text-right ${position === selected ? 'text-blue-100' : 'text-gray-400'}`}>
+                                            <p className={`flex-1 text-xs truncate text-right ${position === selected ? 'text-white/80' : 'text-white/60'}`}>
                                                 {result.subtitle}
                                             </p>
                                         </button>

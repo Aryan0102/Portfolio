@@ -22,9 +22,9 @@ const Window = ({appName, width, height, children}) => {
             onMouseDown={() => focusWindow(appName)}
         >
             <div ref={nodeRef} className='absolute' style={{ zIndex }}>
-                <div style={{width: width, height: height}} className="bg-white/20 backdrop-blur-lg rounded-md cursor-move flex flex-col">
+                <div style={{width: width, height: height}} className="vibrancy rounded-md cursor-move flex flex-col">
                     {/* Title bar - fixed height */}
-                    <div className='flex items-center justify-between px-2 flex-shrink-0'>
+                    <div className='flex items-center justify-between px-2 py-1 flex-shrink-0 bg-black/25 rounded-t-md'>
                         <div className='flex items-center gap-2 w-[20%]'>
                             <div className='w-3 h-3 bg-red-500 rounded-full cursor-pointer' onClick={() => handleCloseWindow(appName)}></div>
                             <div className='w-3 h-3 bg-yellow-500 rounded-full cursor-pointer'></div>

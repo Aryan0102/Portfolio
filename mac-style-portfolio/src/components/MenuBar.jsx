@@ -126,7 +126,7 @@ const MenuBar = () => {
                         </button>
 
                         {controlOpen && (
-                            <div className="absolute top-full right-0 mt-3 w-[330px] p-3 bg-white/10 backdrop-blur-2xl border border-white/20 rounded-xl shadow-2xl">
+                            <div className="absolute top-full right-0 mt-3 w-[330px] p-3 vibrancy border border-white/15 rounded-xl shadow-2xl">
                                 <div className="flex gap-3">
                                     <div className="flex-1 rounded-xl bg-white/15 p-3 space-y-3">
                                         {toggleRow(<FaWifi className="w-3.5 h-3.5" />, "Wi-Fi", wifiOn ? "Aryan's Wi-Fi" : "Off", wifiOn, () => setWifiOn(!wifiOn))}

@@ -109,7 +109,7 @@ const Maps = () => {
           ) : (
             <>
               {/* Left Side */}
-              <div className="w-[30%] h-full bg-gray-800 border-r border-gray-700 overflow-y-auto">
+              <div className="w-[30%] h-full bg-gray-950 border-r border-gray-800 overflow-y-auto">
                 <div className="p-3">
                   {/* Search Bar */}
                   <div className="px-2 py-2 bg-gray-700 rounded flex items-center gap-2 mb-4">

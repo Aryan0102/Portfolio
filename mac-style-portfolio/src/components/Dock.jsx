@@ -8,7 +8,7 @@ const Dock = () => {
 
   return (
     <div className="fixed bottom-2 w-full h-16 flex items-center justify-center">
-        <div className='flex items-center justify-center gap-4 h-full w-1/2 bg-white/10 rounded-xl shadow-lg backdrop-blur-md'>
+        <div className='flex items-center justify-center gap-4 h-full w-1/2 vibrancy rounded-xl shadow-lg'>
           {apps.map((app) => (
             <button key={app.name}
               className="w-12 h-12 flex items-center justify-center hover:scale-105 transition-transform"
