@@ -13,11 +13,10 @@ const MenuBar = () => {
     const [wifiOn, setWifiOn] = useState(true);
     const [bluetoothOn, setBluetoothOn] = useState(true);
     const [airdropOn, setAirdropOn] = useState(false);
-    const [focusOn, setFocusOn] = useState(false);
     const [volume, setVolume] = useState(70);
     const controlRef = useRef(null);
 
-    const { activeWindow, spotlightOpen, toggleSpotlight, brightness, setBrightness } = useContext(Context);
+    const { activeWindow, spotlightOpen, toggleSpotlight, brightness, setBrightness, focusMode, setFocusMode } = useContext(Context);
 
     useEffect(() => {
         const timer = setInterval(() => {
@@ -101,7 +100,7 @@ const MenuBar = () => {
         <div className="w-full h-10 flex backdrop-blur-sm bg-white/10 items-center justify-between px-4 shadow-md">
             <div className="text-white text-sm w-full flex flex-row justify-between items-center">
                 <div className="flex flex-row items-center gap-6">
-                    <img src={AppleLogo} alt="Apple Logo" className="w-4.5 h-4.5 cursor-pointer" />
+                    <img src={AppleLogo} alt="Apple Logo" className="w-4.5 h-4.5 cursor-pointer block" />
                     <p className="font-semibold">{activeWindow || "Aryan Gupta"}</p>
                     <p className="font-semibold">File</p>
                     <p className="font-semibold">Edit</p>
@@ -120,9 +119,9 @@ const MenuBar = () => {
                     <div ref={controlRef} className="relative z-[2500]">
                         <button
                             onClick={() => setControlOpen(!controlOpen)}
-                            className={`p-1 -m-1 rounded ${controlOpen ? 'bg-white/25' : ''}`}
+                            className={`p-1 -m-1 rounded flex items-center ${controlOpen ? 'bg-white/25' : ''}`}
                         >
-                            <img src={ControlCenter} alt="Control Center" className="w-5 h-5 cursor-pointer" />
+                            <img src={ControlCenter} alt="Control Center" className="w-5 h-5 cursor-pointer block" />
                         </button>
 
                         {controlOpen && (
@@ -136,10 +135,10 @@ const MenuBar = () => {
 
                                     <div className="w-[38%] flex flex-col gap-3">
                                         <button
-                                            onClick={() => setFocusOn(!focusOn)}
+                                            onClick={() => setFocusMode(!focusMode)}
                                             className="flex-1 rounded-xl bg-white/15 p-3 flex flex-col items-start justify-center gap-1.5"
                                         >
-                                            {iconCircle(<IoMoon className="w-3.5 h-3.5" />, focusOn)}
+                                            {iconCircle(<IoMoon className="w-3.5 h-3.5" />, focusMode)}
                                             <p className="text-[11px] text-white">Focus</p>
                                         </button>
 

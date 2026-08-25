@@ -15,7 +15,7 @@ import PreviewIcon from "../assets/optimized/previewicon.webp"
 import { getInformation } from "../getInfo"
 import { useLaunchTarget } from '../useLaunchTarget';
 import { MacOSLoader } from '../assets/loader';
-import { IoSearch, IoApps, IoMove, IoDocumentText, IoArrowUndo } from "react-icons/io5";
+import { IoSearch, IoApps, IoMove, IoDocumentText, IoArrowUndo, IoOptions, IoMoon } from "react-icons/io5";
 
 const Tips = () => {
     const { handleOpenWindow } = useContext(Context);
@@ -38,6 +38,16 @@ const Tips = () => {
             icon: <IoMove />,
             title: 'Drag windows around',
             description: 'Click and hold on any title bar to drag windows around the screen, just like in macOS.'
+        },
+        {
+            icon: <IoOptions />,
+            title: 'Control Center',
+            description: 'Click the Control Center icon in the menu bar to change the brightness, which really does dim the screen.'
+        },
+        {
+            icon: <IoMoon />,
+            title: 'Notifications and Focus',
+            description: 'Notifications drop in from the top right. Turn on Focus in Control Center to silence them.'
         },
         {
             icon: <IoDocumentText />,

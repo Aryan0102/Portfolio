@@ -4,6 +4,7 @@ import background from "../assets/optimized/macbg.webp"
 import MenuBar from "./MenuBar";
 import Spotlight from "./Spotlight";
 import Widgets from "../widgets/Widgets";
+import Notifications from "../notifications/Notifications";
 import { desktopItems } from "../desktopItems";
 
 const Desktop = ({ children }) => {
@@ -25,6 +26,8 @@ const Desktop = ({ children }) => {
         <MenuBar />
 
         <Widgets />
+
+        <Notifications />
 
         <div className="absolute top-20 right-10 space-y-4">
             {desktopItems.map((icon) => (
