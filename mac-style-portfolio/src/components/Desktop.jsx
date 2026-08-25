@@ -3,6 +3,7 @@ import { Context } from "../context";
 import background from "../assets/optimized/macbg.webp"
 import MenuBar from "./MenuBar";
 import Spotlight from "./Spotlight";
+import Widgets from "../widgets/Widgets";
 import { desktopItems } from "../desktopItems";
 
 const Desktop = ({ children }) => {
@@ -22,6 +23,8 @@ const Desktop = ({ children }) => {
         style={{ backgroundImage: `url(${background})` }}
     >
         <MenuBar />
+
+        <Widgets />
 
         <div className="absolute top-20 right-10 space-y-4">
             {desktopItems.map((icon) => (
