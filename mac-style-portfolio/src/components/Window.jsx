@@ -5,16 +5,15 @@ import { useViewport } from '../useViewport';
 
 const menuBarHeight = 40;
 const dockHeight = 88;
-const minWidth = 380;
-const minHeight = 280;
-
-const Window = ({ appName, width, height, children }) => {
+const Window = ({ appName, width, height, minWidth = 560, minHeight = 420, children }) => {
     const nodeRef = useRef(null);
     const { handleCloseWindow, openWindows, activeWindow, focusWindow } = useContext(Context);
     const viewport = useViewport();
 
-    const maxWidth = Math.max(minWidth, viewport.width - 32);
-    const maxHeight = Math.max(minHeight, viewport.height - menuBarHeight - dockHeight);
+    const floorWidth = Math.min(minWidth, viewport.width - 32);
+    const floorHeight = Math.min(minHeight, viewport.height - menuBarHeight - dockHeight);
+    const maxWidth = Math.max(floorWidth, viewport.width - 32);
+    const maxHeight = Math.max(floorHeight, viewport.height - menuBarHeight - dockHeight);
 
     const [size, setSize] = useState({
         width: Math.min(width, maxWidth),
@@ -40,8 +39,8 @@ const Window = ({ appName, width, height, children }) => {
 
         const onMove = (moveEvent) => {
             setSize({
-                width: axis === 'y' ? startWidth : Math.min(maxWidth, Math.max(minWidth, startWidth + moveEvent.clientX - startX)),
-                height: axis === 'x' ? startHeight : Math.min(maxHeight, Math.max(minHeight, startHeight + moveEvent.clientY - startY))
+                width: axis === 'y' ? startWidth : Math.min(maxWidth, Math.max(floorWidth, startWidth + moveEvent.clientX - startX)),
+                height: axis === 'x' ? startHeight : Math.min(maxHeight, Math.max(floorHeight, startHeight + moveEvent.clientY - startY))
             });
         };
 

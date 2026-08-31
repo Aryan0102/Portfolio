@@ -9,6 +9,8 @@ const Preview = () => (
         appName="Preview"
         width={780}
         height={720}
+        minWidth={460}
+        minHeight={460}
         children={
             <div className="bg-gray-900 w-full h-full flex flex-col">
                 <div className="flex items-center justify-between px-3 py-2 bg-gray-800 border-b border-gray-700">

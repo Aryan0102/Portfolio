@@ -46,6 +46,8 @@ const VsCode = () => {
       appName="Visual Studio Code"
       width={1200}
       height={700}
+      minWidth={620}
+      minHeight={440}
       children={
         <div className="bg-stone-900 w-full h-full flex">
           {loading ? (
@@ -90,8 +92,8 @@ const VsCode = () => {
                       className={`flex items-center gap-2 py-1.5 px-4 hover:bg-gray-700 cursor-pointer ${activeFile === index ? 'bg-gray-700' : ''}`}
                       onClick={() => setActiveFile(index)}
                     >
-                      <VscFiles className="w-4 h-4 text-gray-400" />
-                      <p className="text-sm">{project.title}</p>
+                      <VscFiles className="w-4 h-4 flex-shrink-0 text-gray-400" />
+                      <p className="text-sm truncate">{project.title}</p>
                     </div>
                   ))}
                 </div>

@@ -60,6 +60,8 @@ const Reminders = () => {
       appName="Reminders"
       width={900}
       height={650}
+      minWidth={560}
+      minHeight={440}
       children={
         <div className="bg-gray-900 w-full h-full rounded-b-lg flex">
           {loading ? (
@@ -103,8 +105,8 @@ const Reminders = () => {
                             {item.completed == "TRUE" ? (<IoCheckmarkCircle className="w-5 h-5 text-green-500" />) : (<IoEllipseOutline className="w-5 h-5 text-gray-500" />)}
                           </div>
 
-                          <div className="flex-1">
-                            <p className={`text-white ${item.completed == "TRUE" ? "line-through opacity-50" : ""}`}>
+                          <div className="flex-1 min-w-0">
+                            <p className={`text-white truncate ${item.completed == "TRUE" ? "line-through opacity-50" : ""}`}>
                               {item.title}
                             </p>
                           </div>

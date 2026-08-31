@@ -99,6 +99,8 @@ const Maps = () => {
       appName="Maps"
       width={1000}
       height={700}
+      minWidth={640}
+      minHeight={460}
       children={
         <div className="bg-gray-900 w-full h-full flex">
           {loading ? (
@@ -125,13 +127,13 @@ const Maps = () => {
                         <div className="cursor-pointer">
                           <div onClick={() => handlePlaceClick(place)} className="p-3 rounded-lg">
                             <div className="flex gap-3">
-                              <div className={`w-10 h-10 rounded-lg flex items-center justify-center text-white`} style={{ backgroundColor: place.color }}>
+                              <div className={`w-10 h-10 flex-shrink-0 rounded-lg flex items-center justify-center text-white`} style={{ backgroundColor: place.color }}>
                                 {getIconByCategory(place.category)}
                               </div>
-                              <div className="flex flex-col">
-                                <p className="text-sm font-medium text-white">{place.name}</p>
-                                <p className="text-xs text-gray-400">{place.category}</p>
-                                <p className="text-xs text-gray-500 mt-1">{place.address}</p>
+                              <div className="flex flex-col min-w-0">
+                                <p className="text-sm font-medium text-white truncate">{place.name}</p>
+                                <p className="text-xs text-gray-400 truncate">{place.category}</p>
+                                <p className="text-xs text-gray-500 mt-1 truncate">{place.address}</p>
                               </div>
                             </div>
                           </div>
@@ -198,7 +200,7 @@ const Maps = () => {
                   <div className="absolute bottom-4 left-4 right-4 bg-gray-800 rounded-lg shadow-lg p-4">
                     <div className="flex items-start gap-3">
                       <div
-                        className="w-12 h-12 rounded-lg flex items-center justify-center text-white"
+                        className="w-12 h-12 flex-shrink-0 rounded-lg flex items-center justify-center text-white"
                         style={{ backgroundColor: selectedPlace.color }}
                       >
                         {getIconByCategory(selectedPlace.category)}

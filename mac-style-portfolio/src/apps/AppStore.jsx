@@ -105,6 +105,8 @@ const AppStore = () => {
       appName="App Store"
       width={1200}
       height={700}
+      minWidth={620}
+      minHeight={460}
       children={
         <div className="bg-gray-900 w-full h-full flex">
           <div className="w-56 flex-shrink-0 bg-gray-950 border-r border-gray-800 hidden @2xl:flex flex-col p-3">

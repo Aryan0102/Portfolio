@@ -12,6 +12,8 @@ const Contacts = () => {
       appName="Contacts"
       width={900}
       height={650}
+      minWidth={560}
+      minHeight={440}
       children={
         <div className="bg-gray-900 w-full h-full rounded-b-lg flex">
           {/* Left Side */}
@@ -24,12 +26,12 @@ const Contacts = () => {
 
               <p className="text-xs text-gray-500 mb-2 px-2">ALL CONTACTS</p>
               <div className="bg-blue-500/20 rounded p-3 flex items-center gap-3 cursor-pointer border border-blue-500/30">
-                <div className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-sm font-semibold text-white">
+                <div className="w-10 h-10 flex-shrink-0 bg-blue-500 rounded-full flex items-center justify-center text-sm font-semibold text-white">
                   AG
                 </div>
-                <div>
-                  <p className="text-sm text-white">Aryan Gupta</p>
-                  <p className="text-xs text-gray-400">Northeastern University</p>
+                <div className="min-w-0">
+                  <p className="text-sm text-white truncate">Aryan Gupta</p>
+                  <p className="text-xs text-gray-400 truncate">Northeastern University</p>
                 </div>
               </div>
             </div>

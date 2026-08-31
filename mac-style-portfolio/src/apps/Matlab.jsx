@@ -64,6 +64,8 @@ const Matlab = () => {
             appName="Matlab"
             width={1250}
             height={600}
+            minWidth={620}
+            minHeight={420}
             children={
                 <div className="bg-white w-full h-full flex flex-col">
                     {loading ? (
@@ -100,28 +102,28 @@ const Matlab = () => {
                                             <div className="flex items-center gap-1 py-1">
                                                 <IoCaretDownOutline className="w-3 h-3" />
                                                 <IoFolderOpenOutline className="w-4 h-4 text-yellow-500" />
-                                                <p className="text-gray-700">Aryan's Research</p>
+                                                <p className="text-gray-700 truncate">Aryan's Research</p>
                                             </div>
 
                                             <div className="ml-4">
                                                 <div className="flex items-center gap-1 py-1">
                                                     <IoCaretDownOutline className="w-3 h-3" />
                                                     <IoFolderOpenOutline className="w-4 h-4 text-yellow-500" />
-                                                    <p className="text-gray-700">Photonics Lab</p>
+                                                    <p className="text-gray-700 truncate">Photonics Lab</p>
                                                 </div>
 
                                                 <div className="ml-4">
                                                     <div className="flex items-center gap-1 py-1 hover:bg-gray-200 rounded cursor-pointer bg-blue-100">
                                                         <IoDocumentOutline className="w-4 h-4 text-blue-600" />
-                                                        <p className="text-gray-700">research_overview.m</p>
+                                                        <p className="text-gray-700 truncate">research_overview.m</p>
                                                     </div>
                                                     <div className="flex items-center gap-1 py-1 rounded ">
                                                         <IoDocumentOutline className="w-4 h-4 text-gray-600" />
-                                                        <p className="text-gray-700">algorithms.py</p>
+                                                        <p className="text-gray-700 truncate">algorithms.py</p>
                                                     </div>
                                                     <div className="flex items-center gap-1 py-1 rounded">
                                                         <IoDocumentOutline className="w-4 h-4 text-gray-600" />
-                                                        <p className="text-gray-700">data-analysis.py</p>
+                                                        <p className="text-gray-700 truncate">data-analysis.py</p>
                                                     </div>
                                                 </div>
                                             </div>

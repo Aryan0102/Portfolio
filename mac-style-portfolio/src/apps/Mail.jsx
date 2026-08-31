@@ -105,6 +105,8 @@ const Mail = () => {
       appName="Mail"
       width={1000}
       height={600}
+      minWidth={560}
+      minHeight={460}
       children={
         <div className="bg-gray-900 w-full h-full rounded-b-lg flex">
           {/* Left Side/Inboxes */}

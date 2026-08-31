@@ -128,6 +128,8 @@ const Tips = () => {
             appName="Tips"
             width={900}
             height={620}
+            minWidth={520}
+            minHeight={420}
             children={
                 <div className="bg-gray-900 w-full h-full flex flex-col text-white">
                     {loading ? (
@@ -217,7 +219,7 @@ const Tips = () => {
                                                     className="cursor-pointer group"
                                                 >
                                                     <div className="rounded-xl bg-gray-800 border border-gray-700 aspect-[2/1] flex items-center justify-center group-hover:bg-gray-700 transition-colors">
-                                                        <img src={getIconByName(app.icon)} alt={app.title} className="w-12 h-12" />
+                                                        <img src={getIconByName(app.icon)} alt={app.title} className="w-12 h-12 flex-shrink-0" />
                                                     </div>
                                                     <p className="mt-2.5 text-sm font-semibold">{app.title}</p>
                                                     <p className="text-sm text-gray-400 leading-snug">{app.description}</p>

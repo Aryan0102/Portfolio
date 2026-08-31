@@ -37,6 +37,8 @@ const Safari = () => {
       appName="Safari"
       width={1200}
       height={700}
+      minWidth={560}
+      minHeight={420}
       children={
         <div className=" bg-[#3e4241] w-full h-full flex flex-col">
           {loading ? (
@@ -82,7 +84,7 @@ const Safari = () => {
                         key={index}
                         onClick={() => setActiveTab(index)}
                         style={{ width: `${100 / pages.length}%` }}
-                        className={`text-xs transition-all ${activeTab === index
+                        className={`text-xs px-2 truncate transition-all ${activeTab === index
                           ? "bg-[#3e4241] text-white"
                           : "bg-black/30 text-gray-400 hover:bg-black/40"
                           }`}
