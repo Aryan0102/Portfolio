@@ -132,7 +132,7 @@ const Matlab = () => {
                                 </div>
 
                                 {/* Center - Editor */}
-                                <div className="flex flex-col">
+                                <div className="flex-1 min-w-0 flex flex-col">
                                     {/* Tab bar */}
                                     <div className="bg-gray-100 border-b border-gray-300 flex">
                                         <div className="flex items-center gap-1 px-3 py-1 bg-white border-r border-gray-300">

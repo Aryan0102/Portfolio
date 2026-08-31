@@ -163,11 +163,11 @@ const Spotlight = () => {
 
     return (
         <div
-            className="fixed inset-0 z-[3000] flex justify-center pt-[14vh] bg-black/20"
+            className="fixed inset-0 z-[3000] flex justify-center pt-[10vh] px-4 bg-black/20"
             onMouseDown={closeSpotlight}
         >
             <div
-                className="w-[680px] max-w-[92vw] h-fit rounded-2xl vibrancy border border-white/15 shadow-2xl overflow-hidden"
+                className="spotlight-panel h-fit rounded-2xl vibrancy border border-white/15 shadow-2xl overflow-hidden"
                 onMouseDown={(e) => e.stopPropagation()}
             >
                 <div className="flex items-center gap-3 px-4 h-16 bg-black/25">
@@ -184,7 +184,7 @@ const Spotlight = () => {
                     <p className="text-xs text-white/70 flex-shrink-0">⌘K</p>
                 </div>
 
-                <div className="max-h-[340px] overflow-auto noscrollbar border-t border-white/10 p-2 bg-black/25">
+                <div className="max-h-[min(340px,52vh)] overflow-auto noscrollbar border-t border-white/10 p-2 bg-black/25">
                     {results.length === 0 ? (
                         <p className="text-sm text-white/60 px-2 py-3">
                             {indexing ? 'Indexing…' : `No results for “${query}”`}

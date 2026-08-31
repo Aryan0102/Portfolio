@@ -78,7 +78,7 @@ const WeatherWidget = () => {
                     <div className="text-xl drop-shadow">{weatherIcon(weather?.code, weather?.isDay)}</div>
                 </div>
 
-                <p className="text-4xl font-light leading-none drop-shadow">{weather?.temperature}°</p>
+                <p className="weather-temperature font-light leading-none drop-shadow">{weather?.temperature}°</p>
 
                 <div className="text-[11px] drop-shadow">
                     <p>{condition.label}</p>

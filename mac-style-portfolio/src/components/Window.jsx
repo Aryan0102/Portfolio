@@ -15,9 +15,13 @@ const Window = ({ appName, width, height, minWidth = 560, minHeight = 420, child
     const maxWidth = Math.max(floorWidth, viewport.width - 32);
     const maxHeight = Math.max(floorHeight, viewport.height - menuBarHeight - dockHeight);
 
-    const [size, setSize] = useState({
-        width: Math.min(width, maxWidth),
-        height: Math.min(height, maxHeight)
+    const [size, setSize] = useState(() => {
+        const scale = Math.min(1, (maxWidth * 0.92) / width, (maxHeight * 0.92) / height);
+
+        return {
+            width: Math.max(floorWidth, Math.round(width * scale)),
+            height: Math.max(floorHeight, Math.round(height * scale))
+        };
     });
     const [resizing, setResizing] = useState(false);
     const frame = useRef(null);

@@ -22,3 +22,111 @@
 .notification-in {
   animation: notification-in 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 }
+
+:root {
+    --design-width: 1512;
+    --min-scale: 0.7;
+    --unit: 4;
+}
+
+.widget-card,
+.widget-placeholder,
+.snapshot-card,
+.snapshot-arrows,
+.snapshot-timeline,
+.spotlight-panel,
+.notification-banner,
+.control-panel,
+.dock-icon,
+.dock-shelf,
+.weather-temperature,
+.contribution-square,
+.contribution-grid,
+.desktop-icon,
+.desktop-icon p {
+    --fluid: clamp(
+        calc(var(--max) * var(--min-scale) * 1px),
+        calc(var(--max) / var(--design-width) * 100vw),
+        calc(var(--max) * 1px)
+    );
+}
+
+.widget-card {
+    --max: calc(80 * var(--unit));
+    width: var(--fluid);
+}
+
+.widget-placeholder {
+    --max: calc(32 * var(--unit));
+    height: var(--fluid);
+}
+
+.weather-temperature {
+    --max: calc(9 * var(--unit));
+    font-size: var(--fluid);
+}
+
+.contribution-square {
+    --max: calc(2 * var(--unit));
+    width: var(--fluid);
+    height: var(--fluid);
+}
+
+.contribution-grid {
+    --max: var(--unit);
+    gap: var(--fluid);
+}
+
+.desktop-icon {
+    --max: calc(13 * var(--unit));
+    width: var(--fluid);
+}
+
+.desktop-icon p {
+    --max: calc(4 * var(--unit));
+    font-size: var(--fluid);
+}
+
+.snapshot-card {
+    --max: calc(155 * var(--unit));
+    width: min(var(--fluid), 88vw);
+    max-height: 78vh;
+}
+
+.snapshot-arrows {
+    --max: calc(155 * var(--unit));
+    left: calc(50% + min(var(--fluid), 88vw) / 2 + var(--unit) * 3px);
+}
+
+.snapshot-timeline {
+    --max: calc(56 * var(--unit));
+    width: var(--fluid);
+}
+
+.spotlight-panel {
+    --max: calc(170 * var(--unit));
+    width: min(var(--fluid), 92vw);
+}
+
+.notification-banner {
+    --max: calc(86 * var(--unit));
+    width: min(var(--fluid), 90vw);
+}
+
+.control-panel {
+    --max: calc(82 * var(--unit));
+    width: min(var(--fluid), 92vw);
+}
+
+.dock-icon {
+    --max: calc(12 * var(--unit));
+    width: var(--fluid);
+    height: var(--fluid);
+}
+
+.dock-shelf {
+    --max: calc(16 * var(--unit));
+    height: var(--fluid);
+    gap: calc(var(--fluid) / 4);
+    padding-inline: calc(var(--fluid) / 5);
+}

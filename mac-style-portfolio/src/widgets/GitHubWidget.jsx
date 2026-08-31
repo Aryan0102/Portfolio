@@ -3,7 +3,7 @@ import { useWidgetData } from './useWidgetData';
 import WidgetCard from './WidgetCard';
 
 const githubUser = "Aryan0102";
-const weeksShown = 26;
+const weeksShown = 24;
 const levelColors = ["bg-[#161b22]", "bg-[#0e4429]", "bg-[#006d32]", "bg-[#26a641]", "bg-[#39d353]"];
 const contributionsUrl = `https://github-contributions-api.jogruber.de/v4/${githubUser}?y=last`;
 
@@ -37,14 +37,14 @@ const GitHubWidget = () => {
                 <p className="text-[10px] text-[#7d8590]">{weeksShown} wks</p>
             </div>
 
-            <div className="flex gap-[3px] mt-2.5">
+            <div className="contribution-grid flex mt-2.5">
                 {weeks.map((week, index) => (
-                    <div key={index} className="flex flex-col gap-[3px]">
+                    <div key={index} className="contribution-grid flex flex-col">
                         {week.map((day) => (
                             <div
                                 key={day.date}
                                 title={`${day.count} contributions on ${day.date}`}
-                                className={`w-[8px] h-[8px] rounded-[2px] ${levelColors[day.level]}`}
+                                className={`contribution-square rounded-[2px] ${levelColors[day.level]}`}
                             />
                         ))}
                     </div>
@@ -55,10 +55,10 @@ const GitHubWidget = () => {
                 <p className="text-[11px] text-[#7d8590]">
                     <span className="text-white font-semibold">{data?.total?.toLocaleString()}</span> this year
                 </p>
-                <div className="flex items-center gap-[3px]">
+                <div className="contribution-grid flex items-center">
                     <p className="text-[9px] text-[#7d8590] mr-0.5">Less</p>
                     {levelColors.map((color) => (
-                        <div key={color} className={`w-[8px] h-[8px] rounded-[2px] ${color}`} />
+                        <div key={color} className={`contribution-square rounded-[2px] ${color}`} />
                     ))}
                     <p className="text-[9px] text-[#7d8590] ml-0.5">More</p>
                 </div>

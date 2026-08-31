@@ -73,7 +73,7 @@ const TimeMachine = () => {
 
     const snapshotCard = (experience, depth) => (
         <div
-            className="absolute left-1/2 top-1/2 w-[620px] rounded-xl border border-gray-700 bg-gray-900 shadow-2xl overflow-hidden transition-all duration-500"
+            className="snapshot-card absolute left-1/2 top-1/2 rounded-xl border border-gray-700 bg-gray-900 shadow-2xl overflow-y-auto noscrollbar transition-all duration-500"
             style={{
                 transform: `translate(-50%, -50%) translateY(${-depth * 34}px) scale(${1 - depth * 0.07})`,
                 filter: depth === 0 ? 'none' : `brightness(${Math.max(0.2, 0.55 - (depth - 1) * 0.12)})`,
@@ -90,7 +90,7 @@ const TimeMachine = () => {
             <RemoteImage
                 src={experience.image}
                 alt={experience.company}
-                wrapperClassName="w-full h-40"
+                wrapperClassName="w-full h-[22vh] max-h-40 min-h-24"
                 className="w-full h-full object-cover"
             />
 
@@ -147,7 +147,7 @@ const TimeMachine = () => {
                         ))}
                     </div>
 
-                    <div className="absolute top-1/2 left-1/2 ml-[330px] -translate-y-1/2 flex flex-col items-center gap-2 z-[200]">
+                    <div className="snapshot-arrows absolute top-1/2 -translate-y-1/2 flex flex-col items-center gap-2 z-[200]">
                         <button
                             onClick={goBackInTime}
                             disabled={browseIndex === experiences.length - 1}
@@ -164,7 +164,7 @@ const TimeMachine = () => {
                         </button>
                     </div>
 
-                    <div className="absolute right-0 top-0 bottom-0 w-56 flex flex-col justify-center gap-1 pr-3 z-[200]">
+                    <div className="snapshot-timeline absolute right-0 top-0 bottom-0 hidden min-[900px]:flex flex-col justify-center gap-1 pr-3 z-[200]">
                         {experiences.map((experience, index) => (
                             <div key={index}>
                                 <button
@@ -188,7 +188,7 @@ const TimeMachine = () => {
                         ))}
                     </div>
 
-                    <p className="absolute bottom-8 left-1/2 -translate-x-1/2 text-xs text-gray-400 z-[200]">
+                    <p className="absolute bottom-8 left-1/2 -translate-x-1/2 text-xs text-gray-400 z-[200] hidden min-[700px]:block">
                         Use the arrows or press ↑ / ↓ to travel, Esc to leave
                     </p>
                 </>

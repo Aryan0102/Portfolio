@@ -3,7 +3,7 @@ import { getAppIcon } from '../appList';
 const NotificationBanner = ({ notification, onOpen, onDismiss }) => (
     <div
         onClick={onOpen}
-        className={`notification-in w-[344px] rounded-2xl vibrancy border border-white/15 shadow-2xl overflow-hidden cursor-pointer transition-all duration-200 ${
+        className={`notification-in notification-banner rounded-2xl vibrancy border border-white/15 shadow-2xl overflow-hidden cursor-pointer transition-all duration-200 ${
             notification.leaving ? 'opacity-0 translate-x-[110%]' : 'opacity-100'
         }`}
     >

@@ -100,7 +100,7 @@ const VsCode = () => {
               </div>
 
               {/* Editor */}
-              <div className="flex flex-col">
+              <div className="flex-1 min-w-0 flex flex-col">
                 {/* Tabs */}
                 <div className="bg-neutral-800 flex border-b">
                   <div className="flex items-center gap-2 px-3 py-2 bg-[#1e1e1e] border-r">

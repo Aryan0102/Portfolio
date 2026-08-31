@@ -139,9 +139,9 @@ const Tips = () => {
                         </div>
                     ) : (
                         <div className="flex-1 overflow-auto noscrollbar">
-                            <div className="pt-8 pb-10 px-8">
-                                <p className="text-3xl font-semibold text-center">Need help? Find answers here.</p>
-                                <div className="mt-5 mx-auto w-[72%] max-w-[600px] flex items-center gap-2 h-9 px-4 rounded-full border border-gray-700 bg-gray-800">
+                            <div className="pt-5 pb-6 px-5 @2xl:pt-8 @2xl:pb-10 @2xl:px-8">
+                                <p className="text-xl @xl:text-2xl @3xl:text-3xl font-semibold text-center">Need help? Find answers here.</p>
+                                <div className="mt-4 @2xl:mt-5 mx-auto w-full @xl:w-[72%] max-w-[600px] flex items-center gap-2 h-9 px-4 rounded-full border border-gray-700 bg-gray-800">
                                     <IoSearch className="w-4 h-4 text-gray-400 flex-shrink-0" />
                                     <input
                                         type="text"
@@ -195,7 +195,7 @@ const Tips = () => {
                                 </div>
                             ) : (
                                 <>
-                                    <div className="px-8">
+                                    <div className="px-5 @2xl:px-8">
                                         <div className="max-w-2xl mx-auto">
                                             {portfolioTips.map((tip, index) => (
                                                 <div key={index} className={`flex items-start gap-4 py-4 ${index > 0 ? 'border-t border-gray-700' : ''}`}>
@@ -209,9 +209,9 @@ const Tips = () => {
                                         </div>
                                     </div>
 
-                                    <div className="px-8 pt-12">
-                                        <p className="text-xl font-semibold mb-4">Explore My Apps</p>
-                                        <div className="grid grid-cols-1 @xl:grid-cols-2 @4xl:grid-cols-3 gap-x-5 gap-y-6">
+                                    <div className="px-5 @2xl:px-8 pt-8 @2xl:pt-12">
+                                        <p className="text-lg @2xl:text-xl font-semibold mb-4">Explore My Apps</p>
+                                        <div className="grid grid-cols-2 @4xl:grid-cols-3 gap-x-4 @2xl:gap-x-5 gap-y-5 @2xl:gap-y-6">
                                             {appGuides.map((app, index) => (
                                                 <div
                                                     key={index}
@@ -221,17 +221,17 @@ const Tips = () => {
                                                     <div className="rounded-xl bg-gray-800 border border-gray-700 aspect-[2/1] flex items-center justify-center group-hover:bg-gray-700 transition-colors">
                                                         <img src={getIconByName(app.icon)} alt={app.title} className="w-12 h-12 flex-shrink-0" />
                                                     </div>
-                                                    <p className="mt-2.5 text-sm font-semibold">{app.title}</p>
-                                                    <p className="text-sm text-gray-400 leading-snug">{app.description}</p>
-                                                    <p className="text-sm text-gray-400 mt-0.5">In the Dock</p>
+                                                    <p className="mt-2.5 text-sm font-semibold truncate">{app.title}</p>
+                                                    <p className="text-xs @2xl:text-sm text-gray-400 leading-snug">{app.description}</p>
+                                                    <p className="text-xs @2xl:text-sm text-gray-400 mt-0.5">In the Dock</p>
                                                 </div>
                                             ))}
                                         </div>
                                     </div>
 
-                                    <div className="px-8 pt-12 pb-10">
-                                        <p className="text-xl font-semibold mb-4">Get in Touch</p>
-                                        <div className="rounded-xl bg-gray-800 border border-gray-700 p-5 flex items-center gap-4">
+                                    <div className="px-5 @2xl:px-8 pt-8 @2xl:pt-12 pb-8 @2xl:pb-10">
+                                        <p className="text-lg @2xl:text-xl font-semibold mb-4">Get in Touch</p>
+                                        <div className="rounded-xl bg-gray-800 border border-gray-700 p-4 @2xl:p-5 flex flex-col @xl:flex-row @xl:items-center gap-3 @xl:gap-4">
                                             <div className="flex gap-2 flex-shrink-0">
                                                 <img
                                                     src={MailIcon}

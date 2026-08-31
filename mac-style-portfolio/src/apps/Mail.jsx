@@ -125,7 +125,7 @@ const Mail = () => {
           </div>
 
           {/* Center/Mails */}
-          <div className="w-[30%] h-full py-4 px-1 flex flex-col items-center border-r border-l overflow-auto no-scrollbar">
+          <div className="w-[38%] @3xl:w-[30%] flex-shrink-0 h-full py-4 px-1 flex flex-col items-center border-r border-l overflow-auto no-scrollbar">
             <div className="w-full flex flex-col text-white">
               {actualMail.map((mail) => (
                 <div className="w-full px-4  flex flex-col text-white">
@@ -142,7 +142,7 @@ const Mail = () => {
           </div>
 
           {/* Right Panel - Contact Form */}
-          <div className="w-[50%] h-full flex flex-col">
+          <div className="flex-1 min-w-0 h-full flex flex-col">
             {/* Header */}
             <div className="px-6 py-4">
               <h1 className="text-2xl font-bold text-white">New Message</h1>
