@@ -56,7 +56,7 @@ const VsCode = () => {
           ) : (
             <>
               {/* Activity Bar */}
-              <div className="w-12 bg-neutral-800 flex flex-col items-center py-2 border-r">
+              <div className="w-12 bg-neutral-800 hidden @xl:flex flex-col items-center py-2 border-r">
                 <div className="p-2 text-white bg-stone-900 rounded">
                   <VscFiles className="w-5 h-5" />
                 </div>
@@ -81,7 +81,7 @@ const VsCode = () => {
               </div>
 
               {/* Side Bar - File Explorer */}
-              <div className="w-64 bg-neutral-800 border-r border-b">
+              <div className="w-40 @3xl:w-64 flex-shrink-0 bg-neutral-800 border-r border-b">
                 <div className="p-3 text-xs text-white">PROJECTS</div>
                 <div className="text-gray-200">
                   {projects.map((project, index) => (

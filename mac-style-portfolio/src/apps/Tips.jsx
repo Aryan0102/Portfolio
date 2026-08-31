@@ -209,7 +209,7 @@ const Tips = () => {
 
                                     <div className="px-8 pt-12">
                                         <p className="text-xl font-semibold mb-4">Explore My Apps</p>
-                                        <div className="grid grid-cols-3 gap-x-5 gap-y-6">
+                                        <div className="grid grid-cols-1 @xl:grid-cols-2 @4xl:grid-cols-3 gap-x-5 gap-y-6">
                                             {appGuides.map((app, index) => (
                                                 <div
                                                     key={index}

@@ -91,7 +91,7 @@ const Matlab = () => {
                             {/* Main content area */}
                             <div className="flex">
                                 {/* Left sidebar - Current Folder */}
-                                <div className="w-[20%] bg-gray-50 border-r border-gray-300 flex flex-col">
+                                <div className="w-[20%] bg-gray-50 border-r border-gray-300 hidden @3xl:flex flex-col">
                                     <div className="p-2 border-b border-gray-200">
                                         <p className="text-xs font-semibold text-gray-700">Current Folder</p>
                                     </div>
@@ -173,7 +173,7 @@ const Matlab = () => {
                                 </div>
 
                                 {/* Right sidebar - Workspace */}
-                                <div className="bg-gray-50 border-l border-gray-300 flex flex-col w-[20%]">
+                                <div className="bg-gray-50 border-l border-gray-300 hidden @4xl:flex flex-col w-[20%]">
                                     <div className="p-2 border-b border-gray-200">
                                         <p className="text-xs font-semibold text-gray-700">Workspace</p>
                                     </div>

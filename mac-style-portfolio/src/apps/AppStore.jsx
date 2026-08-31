@@ -90,7 +90,7 @@ const AppStore = () => {
           See All
         </button>
       </div>
-      <div className="grid grid-cols-3 gap-x-8">
+      <div className="grid grid-cols-1 @2xl:grid-cols-2 @5xl:grid-cols-3 gap-x-8">
         {toColumns(items).map((column, index) => (
           <div key={index} className="divide-y divide-gray-800">
             {column.map((skill, i) => skillRow(skill, i))}
@@ -107,7 +107,7 @@ const AppStore = () => {
       height={700}
       children={
         <div className="bg-gray-900 w-full h-full flex">
-          <div className="w-56 flex-shrink-0 bg-gray-950 border-r border-gray-800 flex flex-col p-3">
+          <div className="w-56 flex-shrink-0 bg-gray-950 border-r border-gray-800 hidden @2xl:flex flex-col p-3">
             <div className="flex items-center gap-2 h-7 px-2 rounded-md bg-gray-800 mb-4">
               <IoSearch className="w-3.5 h-3.5 text-gray-400 flex-shrink-0" />
               <input
@@ -143,6 +143,32 @@ const AppStore = () => {
           </div>
 
           <div className="flex-1 overflow-y-auto noscrollbar">
+            <div className="@2xl:hidden sticky top-0 z-10 flex items-center gap-2 p-3 bg-gray-900 border-b border-gray-800">
+              <div className="flex items-center gap-2 h-7 px-2 rounded-md bg-gray-800 flex-1">
+                <IoSearch className="w-3.5 h-3.5 text-gray-400 flex-shrink-0" />
+                <input
+                  type="text"
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  placeholder="Search"
+                  className="flex-1 min-w-0 bg-transparent text-sm text-white placeholder-gray-400 cursor-text focus:outline-none"
+                />
+              </div>
+
+              {navItems.map((item) => (
+                <button
+                  key={item.id}
+                  onClick={() => { setActiveTab(item.id); setQuery(''); }}
+                  title={item.label}
+                  className={`w-7 h-7 flex items-center justify-center rounded-md flex-shrink-0 ${
+                    activeTab === item.id && !isSearching ? 'bg-gray-800' : 'hover:bg-gray-800'
+                  }`}
+                >
+                  {item.icon}
+                </button>
+              ))}
+            </div>
+
             {loading ? (
               <div className="flex flex-col items-center justify-center h-full">
                 <MacOSLoader size={60} />

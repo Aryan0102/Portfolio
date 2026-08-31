@@ -109,7 +109,7 @@ const Maps = () => {
           ) : (
             <>
               {/* Left Side */}
-              <div className="w-[30%] h-full bg-gray-950 border-r border-gray-800 overflow-y-auto">
+              <div className="w-[42%] @3xl:w-[30%] h-full bg-gray-950 border-r border-gray-800 overflow-y-auto">
                 <div className="p-3">
                   {/* Search Bar */}
                   <div className="px-2 py-2 bg-gray-700 rounded flex items-center gap-2 mb-4">
@@ -169,7 +169,7 @@ const Maps = () => {
               </div>
 
               {/* Right Side - Map */}
-              <div className="w-[70%] h-full relative">
+              <div className="flex-1 h-full relative">
                 <APIProvider apiKey={import.meta.env.VITE_MAPS_API}>
                   <Map
                     center={center}

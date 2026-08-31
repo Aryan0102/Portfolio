@@ -108,7 +108,7 @@ const Mail = () => {
       children={
         <div className="bg-gray-900 w-full h-full rounded-b-lg flex">
           {/* Left Side/Inboxes */}
-          <div className="w-[20%] h-full p-4 flex flex-col items-center bg-gray-800">
+          <div className="w-[20%] h-full p-4 hidden @2xl:flex flex-col items-center bg-gray-800">
             <p className="text-gray-200 w-full text-left text-xs mb-1">Favorites</p>
             {mailSections.map((section) => (
               <div
@@ -162,7 +162,7 @@ const Mail = () => {
                 </div>
 
                 {/* From Fields */}
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 @xl:grid-cols-2 gap-4">
                   <div>
                     <input
                       type="text"
@@ -184,7 +184,7 @@ const Mail = () => {
                 </div>
 
                 {/* Email and Phone */}
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 @xl:grid-cols-2 gap-4">
                   <div>
                     <input
                       type="email"

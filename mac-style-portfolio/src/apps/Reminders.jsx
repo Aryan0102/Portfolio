@@ -69,7 +69,7 @@ const Reminders = () => {
             </div>
           ) : (
             <>
-              <div className="w-[30%] h-full bg-gray-950 border-r border-gray-800 p-4">
+              <div className="w-[42%] @3xl:w-[30%] h-full bg-gray-950 border-r border-gray-800 p-4">
                 <p className="text-lg font-semibold text-white mb-4">Reminders</p>
 
                 <div className="space-y-1">
