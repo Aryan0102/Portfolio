@@ -19,6 +19,8 @@ const Window = ({ appName, width, height, minWidth = 560, minHeight = 420, child
         width: Math.min(width, maxWidth),
         height: Math.min(height, maxHeight)
     });
+    const [resizing, setResizing] = useState(false);
+    const frame = useRef(null);
 
     useEffect(() => {
         setSize((current) => ({
@@ -31,6 +33,7 @@ const Window = ({ appName, width, height, minWidth = 560, minHeight = 420, child
         event.preventDefault();
         event.stopPropagation();
         focusWindow(appName);
+        setResizing(true);
 
         const startX = event.clientX;
         const startY = event.clientY;
@@ -38,13 +41,21 @@ const Window = ({ appName, width, height, minWidth = 560, minHeight = 420, child
         const startHeight = size.height;
 
         const onMove = (moveEvent) => {
-            setSize({
-                width: axis === 'y' ? startWidth : Math.min(maxWidth, Math.max(floorWidth, startWidth + moveEvent.clientX - startX)),
-                height: axis === 'x' ? startHeight : Math.min(maxHeight, Math.max(floorHeight, startHeight + moveEvent.clientY - startY))
+            if (frame.current) return;
+
+            frame.current = requestAnimationFrame(() => {
+                frame.current = null;
+                setSize({
+                    width: axis === 'y' ? startWidth : Math.min(maxWidth, Math.max(floorWidth, startWidth + moveEvent.clientX - startX)),
+                    height: axis === 'x' ? startHeight : Math.min(maxHeight, Math.max(floorHeight, startHeight + moveEvent.clientY - startY))
+                });
             });
         };
 
         const onUp = () => {
+            cancelAnimationFrame(frame.current);
+            frame.current = null;
+            setResizing(false);
             window.removeEventListener('pointermove', onMove);
             window.removeEventListener('pointerup', onUp);
         };
@@ -82,8 +93,9 @@ const Window = ({ appName, width, height, minWidth = 560, minHeight = 420, child
                     </div>
 
                     {/* Content area - scrollable */}
-                    <div className="@container flex-1 overflow-auto rounded-b-md noscrollbar">
+                    <div className="@container flex-1 overflow-auto rounded-b-md noscrollbar relative">
                         {children}
+                        {resizing && <div className="absolute inset-0 z-50" />}
                     </div>
 
                     <div
