@@ -222,7 +222,7 @@ const AppStore = () => {
                 {activeTab === 'mastered' && (
                   <div>
                     <p className="text-2xl font-bold text-white mb-2">Mastered</p>
-                    <div className="grid grid-cols-3 gap-x-8">
+                    <div className="grid grid-cols-1 @2xl:grid-cols-2 @5xl:grid-cols-3 gap-x-8">
                       {toColumns(mastered, Math.ceil(mastered.length / 3)).map((column, index) => (
                         <div key={index} className="divide-y divide-gray-800">
                           {column.map((skill, i) => skillRow(skill, i))}

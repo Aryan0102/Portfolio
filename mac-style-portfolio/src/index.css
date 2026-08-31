@@ -1,5 +1,28 @@
 @import "tailwindcss";
 
+@theme {
+  --spacing-widget: clamp(224px, 21.2vw, 320px);
+  --spacing-widget-empty: clamp(90px, 8.5vw, 128px);
+  --spacing-contribution: clamp(5.6px, 0.53vw, 8px);
+  --spacing-contribution-gap: clamp(2.8px, 0.27vw, 4px);
+  --spacing-desktop-icon: clamp(36px, 3.4vw, 52px);
+  --spacing-dock-icon: clamp(34px, 3.2vw, 48px);
+  --spacing-dock-shelf: clamp(45px, 4.2vw, 64px);
+  --spacing-snapshot: clamp(384px, 41vw, 620px);
+  --spacing-snapshot-image: clamp(88px, 10.6vw, 160px);
+  --spacing-spotlight: clamp(422px, 45vw, 680px);
+  --spacing-spotlight-field: clamp(40px, 4.2vw, 64px);
+  --spacing-spotlight-offset: clamp(72px, 16vh, 180px);
+  --spacing-notification: clamp(241px, 22.8vw, 344px);
+  --spacing-control: clamp(230px, 21.7vw, 328px);
+
+  --text-fluid-xs: clamp(9px, 0.8vw, 12px);
+  --text-fluid-sm: clamp(10.5px, 0.93vw, 14px);
+  --text-fluid-base: clamp(12px, 1.06vw, 16px);
+  --text-fluid-xl: clamp(18px, 1.6vw, 24px);
+  --text-fluid-2xl: clamp(25px, 2.4vw, 36px);
+}
+
 .noscrollbar::-webkit-scrollbar {
     display: none; /* for Chrome, Safari and Opera */
 }
@@ -21,112 +44,4 @@
 
 .notification-in {
   animation: notification-in 0.35s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-:root {
-    --design-width: 1512;
-    --min-scale: 0.7;
-    --unit: 4;
-}
-
-.widget-card,
-.widget-placeholder,
-.snapshot-card,
-.snapshot-arrows,
-.snapshot-timeline,
-.spotlight-panel,
-.notification-banner,
-.control-panel,
-.dock-icon,
-.dock-shelf,
-.weather-temperature,
-.contribution-square,
-.contribution-grid,
-.desktop-icon,
-.desktop-icon p {
-    --fluid: clamp(
-        calc(var(--max) * var(--min-scale) * 1px),
-        calc(var(--max) / var(--design-width) * 100vw),
-        calc(var(--max) * 1px)
-    );
-}
-
-.widget-card {
-    --max: calc(80 * var(--unit));
-    width: var(--fluid);
-}
-
-.widget-placeholder {
-    --max: calc(32 * var(--unit));
-    height: var(--fluid);
-}
-
-.weather-temperature {
-    --max: calc(9 * var(--unit));
-    font-size: var(--fluid);
-}
-
-.contribution-square {
-    --max: calc(2 * var(--unit));
-    width: var(--fluid);
-    height: var(--fluid);
-}
-
-.contribution-grid {
-    --max: var(--unit);
-    gap: var(--fluid);
-}
-
-.desktop-icon {
-    --max: calc(13 * var(--unit));
-    width: var(--fluid);
-}
-
-.desktop-icon p {
-    --max: calc(4 * var(--unit));
-    font-size: var(--fluid);
-}
-
-.snapshot-card {
-    --max: calc(155 * var(--unit));
-    width: min(var(--fluid), 88vw);
-    max-height: 78vh;
-}
-
-.snapshot-arrows {
-    --max: calc(155 * var(--unit));
-    left: calc(50% + min(var(--fluid), 88vw) / 2 + var(--unit) * 3px);
-}
-
-.snapshot-timeline {
-    --max: calc(56 * var(--unit));
-    width: var(--fluid);
-}
-
-.spotlight-panel {
-    --max: calc(170 * var(--unit));
-    width: min(var(--fluid), 92vw);
-}
-
-.notification-banner {
-    --max: calc(86 * var(--unit));
-    width: min(var(--fluid), 90vw);
-}
-
-.control-panel {
-    --max: calc(82 * var(--unit));
-    width: min(var(--fluid), 92vw);
-}
-
-.dock-icon {
-    --max: calc(12 * var(--unit));
-    width: var(--fluid);
-    height: var(--fluid);
-}
-
-.dock-shelf {
-    --max: calc(16 * var(--unit));
-    height: var(--fluid);
-    gap: calc(var(--fluid) / 4);
-    padding-inline: calc(var(--fluid) / 5);
 }

@@ -37,14 +37,14 @@ const GitHubWidget = () => {
                 <p className="text-[10px] text-[#7d8590]">{weeksShown} wks</p>
             </div>
 
-            <div className="contribution-grid flex mt-2.5">
+            <div className="flex gap-contribution-gap mt-2.5">
                 {weeks.map((week, index) => (
-                    <div key={index} className="contribution-grid flex flex-col">
+                    <div key={index} className="flex flex-col gap-contribution-gap">
                         {week.map((day) => (
                             <div
                                 key={day.date}
                                 title={`${day.count} contributions on ${day.date}`}
-                                className={`contribution-square rounded-[2px] ${levelColors[day.level]}`}
+                                className={`w-contribution h-contribution rounded-[2px] ${levelColors[day.level]}`}
                             />
                         ))}
                     </div>
@@ -55,10 +55,10 @@ const GitHubWidget = () => {
                 <p className="text-[11px] text-[#7d8590]">
                     <span className="text-white font-semibold">{data?.total?.toLocaleString()}</span> this year
                 </p>
-                <div className="contribution-grid flex items-center">
+                <div className="flex items-center gap-contribution-gap">
                     <p className="text-[9px] text-[#7d8590] mr-0.5">Less</p>
                     {levelColors.map((color) => (
-                        <div key={color} className={`contribution-square rounded-[2px] ${color}`} />
+                        <div key={color} className={`w-contribution h-contribution rounded-[2px] ${color}`} />
                     ))}
                     <p className="text-[9px] text-[#7d8590] ml-0.5">More</p>
                 </div>

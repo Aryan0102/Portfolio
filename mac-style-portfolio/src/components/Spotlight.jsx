@@ -163,14 +163,14 @@ const Spotlight = () => {
 
     return (
         <div
-            className="fixed inset-0 z-[3000] flex justify-center pt-[10vh] px-4 bg-black/20"
+            className="fixed inset-0 z-[3000] flex justify-center pt-spotlight-offset px-4 bg-black/20"
             onMouseDown={closeSpotlight}
         >
             <div
-                className="spotlight-panel h-fit rounded-2xl vibrancy border border-white/15 shadow-2xl overflow-hidden"
+                className="w-spotlight max-w-[88vw] h-fit rounded-2xl vibrancy border border-white/15 shadow-2xl overflow-hidden"
                 onMouseDown={(e) => e.stopPropagation()}
             >
-                <div className="flex items-center gap-3 px-4 h-16 bg-black/25">
+                <div className="h-spotlight-field flex items-center gap-3 px-4 bg-black/25">
                     <IoSearch className="w-6 h-6 text-white/60 flex-shrink-0" />
                     <input
                         ref={inputRef}
@@ -179,7 +179,7 @@ const Spotlight = () => {
                         onChange={(e) => setQuery(e.target.value)}
                         onKeyDown={handleInputKeyDown}
                         placeholder="Spotlight Search"
-                        className="flex-1 bg-transparent text-2xl text-white placeholder-white/50 cursor-text focus:outline-none"
+                        className="text-fluid-xl flex-1 bg-transparent text-white placeholder-white/50 cursor-text focus:outline-none"
                     />
                     <p className="text-xs text-white/70 flex-shrink-0">⌘K</p>
                 </div>

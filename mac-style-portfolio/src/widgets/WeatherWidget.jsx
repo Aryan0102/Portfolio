@@ -1,5 +1,6 @@
 import { IoSunny, IoMoon, IoPartlySunny, IoCloudy, IoRainy, IoSnow, IoThunderstorm } from "react-icons/io5";
 import { useWidgetData } from './useWidgetData';
+import { useViewport } from '../useViewport';
 import WidgetCard from './WidgetCard';
 
 const conditions = {
@@ -59,8 +60,17 @@ const weatherIcon = (code, isDay) => {
     return isDay ? <IoSunny /> : <IoMoon />;
 };
 
+const hoursForWidth = (width) => {
+    if (width < 900) return 2;
+    if (width < 1200) return 3;
+    return 4;
+};
+
 const WeatherWidget = () => {
     const { data: weather, status } = useWidgetData(weatherUrl, toWeather);
+    const viewport = useViewport();
+
+    const hours = (weather?.hours || []).slice(0, hoursForWidth(viewport.width));
 
     const condition = weather ? conditions[weather.code] || conditions[0] : conditions[0];
     const sky = condition.sky === 'clear' && weather && !weather.isDay ? skies.clearNight : skies[condition.sky];
@@ -78,7 +88,7 @@ const WeatherWidget = () => {
                     <div className="text-xl drop-shadow">{weatherIcon(weather?.code, weather?.isDay)}</div>
                 </div>
 
-                <p className="weather-temperature font-light leading-none drop-shadow">{weather?.temperature}°</p>
+                <p className="text-fluid-2xl font-light leading-none drop-shadow">{weather?.temperature}°</p>
 
                 <div className="text-[11px] drop-shadow">
                     <p>{condition.label}</p>
@@ -87,7 +97,7 @@ const WeatherWidget = () => {
             </div>
 
             <div className="flex-1 flex justify-between items-center border-l border-white/25 pl-3">
-                {(weather?.hours || []).map((hour) => (
+                {hours.map((hour) => (
                     <div key={hour.time} className="flex flex-col items-center gap-1">
                         <p className="text-[10px] text-white/80">{hour.hour}</p>
                         <div className="text-sm">{weatherIcon(hour.code, weather.isDay)}</div>

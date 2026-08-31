@@ -31,9 +31,9 @@ const Desktop = ({ children }) => {
 
         <div className="absolute top-20 right-10 flex flex-col gap-4">
             {desktopItems.map((icon) => (
-                <div key={icon.name} className="desktop-icon flex flex-col items-center gap-1.5 cursor-pointer" onClick={() => openIcon(icon)}>
+                <div key={icon.name} className="w-desktop-icon flex flex-col items-center gap-1.5 cursor-pointer" onClick={() => openIcon(icon)}>
                     <img className="w-full aspect-square" src={icon.image} alt={icon.name} />
-                    <p className="text-white font-semibold whitespace-nowrap">{icon.name}</p>
+                    <p className="text-fluid-base text-white font-semibold whitespace-nowrap">{icon.name}</p>
                 </div>
             ))}
         </div>

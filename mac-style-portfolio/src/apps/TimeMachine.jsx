@@ -73,7 +73,7 @@ const TimeMachine = () => {
 
     const snapshotCard = (experience, depth) => (
         <div
-            className="snapshot-card absolute left-1/2 top-1/2 rounded-xl border border-gray-700 bg-gray-900 shadow-2xl overflow-y-auto noscrollbar transition-all duration-500"
+            className="w-snapshot max-w-[84vw] max-h-[72vh] absolute left-1/2 top-1/2 rounded-xl border border-gray-700 bg-gray-900 shadow-2xl overflow-y-auto noscrollbar transition-all duration-500"
             style={{
                 transform: `translate(-50%, -50%) translateY(${-depth * 34}px) scale(${1 - depth * 0.07})`,
                 filter: depth === 0 ? 'none' : `brightness(${Math.max(0.2, 0.55 - (depth - 1) * 0.12)})`,
@@ -84,29 +84,29 @@ const TimeMachine = () => {
                 <div className="w-3 h-3 rounded-full bg-gray-600"></div>
                 <div className="w-3 h-3 rounded-full bg-gray-600"></div>
                 <div className="w-3 h-3 rounded-full bg-gray-600"></div>
-                <p className="flex-1 text-center text-sm text-gray-300">{experience.date}</p>
+                <p className="text-fluid-xs flex-1 text-center text-gray-300 truncate">{experience.date}</p>
             </div>
 
             <RemoteImage
                 src={experience.image}
                 alt={experience.company}
-                wrapperClassName="w-full h-[22vh] max-h-40 min-h-24"
+                wrapperClassName="h-snapshot-image w-full"
                 className="w-full h-full object-cover"
             />
 
-            <div className="p-5">
-                <p className="text-2xl font-bold text-white">{experience.company}</p>
-                <p className="text-lg text-gray-300 mt-0.5">{experience.role}</p>
+            <div className="p-4">
+                <p className="text-fluid-xl font-bold text-white">{experience.company}</p>
+                <p className="text-fluid-base text-gray-300 mt-0.5">{experience.role}</p>
 
                 <div className="flex flex-wrap gap-2 mt-4">
                     {(experience.tech || '').split(", ").map((item, i) => (
-                        <div key={i} className={`px-3 py-1.5 ${experience.color} bg-opacity-50 text-gray-200 rounded-lg text-sm`}>
+                        <div key={i} className={`text-fluid-xs px-2.5 py-1 ${experience.color} bg-opacity-50 text-gray-200 rounded-lg`}>
                             {item}
                         </div>
                     ))}
                 </div>
 
-                <p className="text-gray-300 mt-4 leading-relaxed">{experience.description}</p>
+                <p className="text-fluid-sm text-gray-300 mt-3 leading-relaxed">{experience.description}</p>
             </div>
         </div>
     );
@@ -147,31 +147,35 @@ const TimeMachine = () => {
                         ))}
                     </div>
 
-                    <div className="snapshot-arrows absolute top-1/2 -translate-y-1/2 flex flex-col items-center gap-2 z-[200]">
-                        <button
-                            onClick={goBackInTime}
-                            disabled={browseIndex === experiences.length - 1}
-                            className="w-10 h-10 flex items-center justify-center rounded-lg bg-gray-800 text-white hover:bg-gray-700 disabled:opacity-30 transition-colors"
-                        >
-                            <IoChevronUp />
-                        </button>
-                        <button
-                            onClick={goForwardInTime}
-                            disabled={browseIndex === 0}
-                            className="w-10 h-10 flex items-center justify-center rounded-lg bg-gray-800 text-white hover:bg-gray-700 disabled:opacity-30 transition-colors"
-                        >
-                            <IoChevronDown />
-                        </button>
+                    <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-[200]">
+                        <div className="relative w-snapshot max-w-[84vw]">
+                            <div className="absolute left-full top-1/2 -translate-y-1/2 ml-3 flex flex-col items-center gap-2 pointer-events-auto">
+                                <button
+                                    onClick={goBackInTime}
+                                    disabled={browseIndex === experiences.length - 1}
+                                    className="w-10 h-10 flex items-center justify-center rounded-lg bg-gray-800 text-white hover:bg-gray-700 disabled:opacity-30 transition-colors"
+                                >
+                                    <IoChevronUp />
+                                </button>
+                                <button
+                                    onClick={goForwardInTime}
+                                    disabled={browseIndex === 0}
+                                    className="w-10 h-10 flex items-center justify-center rounded-lg bg-gray-800 text-white hover:bg-gray-700 disabled:opacity-30 transition-colors"
+                                >
+                                    <IoChevronDown />
+                                </button>
+                            </div>
+                        </div>
                     </div>
 
-                    <div className="snapshot-timeline absolute right-0 top-0 bottom-0 hidden min-[900px]:flex flex-col justify-center gap-1 pr-3 z-[200]">
+                    <div className="absolute right-0 top-0 bottom-0 hidden min-[900px]:flex flex-col justify-center gap-1 pr-3 z-[200]">
                         {experiences.map((experience, index) => (
                             <div key={index}>
                                 <button
                                     onClick={() => setBrowseIndex(index)}
                                     className="w-full flex items-center justify-end gap-3 group"
                                 >
-                                    <p className={`text-sm transition-colors ${index === browseIndex ? 'text-white' : 'text-gray-400 group-hover:text-gray-200'}`}>
+                                    <p className={`text-fluid-xs whitespace-nowrap transition-colors ${index === browseIndex ? 'text-white' : 'text-gray-400 group-hover:text-gray-200'}`}>
                                         {experience.date}
                                     </p>
                                     <div className={`h-px transition-all ${index === browseIndex ? 'w-10 bg-white' : 'w-5 bg-gray-500 group-hover:bg-gray-300'}`} />
@@ -188,7 +192,7 @@ const TimeMachine = () => {
                         ))}
                     </div>
 
-                    <p className="absolute bottom-8 left-1/2 -translate-x-1/2 text-xs text-gray-400 z-[200] hidden min-[700px]:block">
+                    <p className="absolute bottom-3 left-1/2 -translate-x-1/2 text-xs text-gray-400 z-[200] hidden min-[700px]:block">
                         Use the arrows or press ↑ / ↓ to travel, Esc to leave
                     </p>
                 </>
