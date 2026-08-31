@@ -14,7 +14,6 @@
   --spacing-spotlight-field: clamp(40px, 4.2vw, 64px);
   --spacing-spotlight-offset: clamp(72px, 16vh, 180px);
   --spacing-notification: clamp(241px, 22.8vw, 344px);
-  --spacing-control: clamp(230px, 21.7vw, 328px);
 
   --text-fluid-xs: clamp(9px, 0.8vw, 12px);
   --text-fluid-sm: clamp(10.5px, 0.93vw, 14px);
