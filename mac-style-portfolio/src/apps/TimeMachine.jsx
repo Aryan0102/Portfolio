@@ -73,6 +73,7 @@ const TimeMachine = () => {
 
     const snapshotCard = (experience, depth) => (
         <div
+            data-ghost={depth === 0 ? 'timemachine:snapshot' : undefined}
             className="w-snapshot max-w-[84vw] max-h-[72vh] absolute left-1/2 top-1/2 rounded-xl border border-gray-700 bg-gray-900 shadow-2xl overflow-y-auto noscrollbar transition-all duration-500"
             style={{
                 transform: `translate(-50%, -50%) translateY(${-depth * 34}px) scale(${1 - depth * 0.07})`,
@@ -123,6 +124,7 @@ const TimeMachine = () => {
 
             <button
                 onClick={exitTimeMachine}
+                data-ghost="timemachine:close"
                 className="absolute top-6 left-6 w-9 h-9 flex items-center justify-center rounded-full bg-gray-800 text-white hover:bg-gray-700 transition-colors z-[200]"
             >
                 <IoClose className="w-5 h-5" />

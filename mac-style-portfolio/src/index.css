@@ -44,3 +44,22 @@
 .notification-in {
   animation: notification-in 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 }
+
+@keyframes ghost-ripple {
+  from { opacity: 0.9; transform: scale(0.3); }
+  to { opacity: 0; transform: scale(1.6); }
+}
+
+.ghost-ripple {
+  animation: ghost-ripple 0.5s ease-out forwards;
+}
+
+@keyframes ghost-press {
+  0%, 100% { transform: scale(1); }
+  40% { transform: scale(0.8); }
+}
+
+.ghost-press {
+  animation: ghost-press 0.25s ease-out;
+  transform-origin: 3px 2px;
+}

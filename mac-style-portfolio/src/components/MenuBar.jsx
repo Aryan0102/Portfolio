@@ -10,7 +10,7 @@ const MenuBar = () => {
 
     const [currentTime, setCurrentTime] = useState(new Date());
 
-    const { activeWindow, spotlightOpen, toggleSpotlight } = useContext(Context);
+    const { activeWindow, spotlightOpen, toggleSpotlight, tourRunning, setTourRunning } = useContext(Context);
 
     useEffect(() => {
         const timer = setInterval(() => {
@@ -51,6 +51,11 @@ const MenuBar = () => {
                 </div>
 
                 <div className="flex flex-row items-center gap-3 lg:gap-4 flex-shrink-0">
+                    {!tourRunning && (
+                        <button onClick={() => setTourRunning(true)} className="font-semibold px-2 -my-1 py-0.5 rounded bg-violet-600/80 hover:bg-violet-600">
+                            ▶ Tour
+                        </button>
+                    )}
                     <IoIosBatteryFull className="text-white w-5 h-5 cursor-pointer hidden sm:block" />
                     <FaWifi className="text-white w-5 h-5 cursor-pointer hidden sm:block" />
                     <button onClick={toggleSpotlight} className={`p-1 -m-1 rounded ${spotlightOpen ? 'bg-white/25' : ''}`}>

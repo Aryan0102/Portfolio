@@ -5,6 +5,7 @@ import MenuBar from "./MenuBar";
 import Spotlight from "./Spotlight";
 import Widgets from "../widgets/Widgets";
 import Notifications from "../notifications/Notifications";
+import GhostTour from "../ghost/GhostTour";
 import { desktopItems } from "../desktopItems";
 
 const Desktop = ({ children }) => {
@@ -41,6 +42,8 @@ const Desktop = ({ children }) => {
         {children}
 
         <Spotlight />
+
+        <GhostTour />
 
         <div
             className="fixed inset-0 bg-black pointer-events-none z-[4000]"

@@ -9,6 +9,7 @@ const ContextProvider = ({ children }) => {
   const [launchTarget, setLaunchTarget] = useState(null);
   const [brightness, setBrightness] = useState(100);
   const [focusMode, setFocusMode] = useState(false);
+  const [tourRunning, setTourRunning] = useState(false);
 
   const handleOpenWindow = (appName, target = null) => {
     if (!openWindows.includes(appName)) {
@@ -49,7 +50,9 @@ const ContextProvider = ({ children }) => {
     brightness,
     setBrightness,
     focusMode,
-    setFocusMode
+    setFocusMode,
+    tourRunning,
+    setTourRunning
   };
 
   return (

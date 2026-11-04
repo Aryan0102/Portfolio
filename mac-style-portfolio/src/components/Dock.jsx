@@ -11,6 +11,7 @@ const Dock = () => {
         <div className='h-dock-shelf gap-[calc(var(--spacing-dock-shelf)/4)] px-[calc(var(--spacing-dock-shelf)/5)] flex items-center justify-center max-w-[calc(100vw-1rem)] vibrancy rounded-xl shadow-lg'>
           {apps.map((app) => (
             <button key={app.name}
+              data-ghost={`dock:${app.name}`}
               className="w-dock-icon h-dock-icon flex-shrink-0 flex items-center justify-center hover:scale-105 transition-transform"
               onClick={() => handleOpenWindow(app.name)}
             >

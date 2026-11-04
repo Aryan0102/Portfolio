@@ -83,7 +83,7 @@ const Window = ({ appName, width, height, minWidth = 560, minHeight = 420, child
             cancel=".window-resize"
             onMouseDown={() => focusWindow(appName)}
         >
-            <div ref={nodeRef} className='absolute' style={{ zIndex }}>
+            <div ref={nodeRef} data-ghost={`window:${appName}`} className='absolute' style={{ zIndex }}>
                 <div style={{width: size.width, height: size.height}} className="vibrancy rounded-md cursor-move flex flex-col relative">
                     {/* Title bar - fixed height */}
                     <div className='flex items-center justify-between px-2 py-1 flex-shrink-0 bg-black/25 rounded-t-md'>
