@@ -106,7 +106,7 @@ const Reminders = () => {
                           </div>
 
                           <div className="flex-1 min-w-0">
-                            <p className={`text-white truncate ${item.completed == "TRUE" ? "line-through opacity-50" : ""}`}>
+                            <p data-ghost={`reminders:${item.title}`} className={`text-white truncate ${item.completed == "TRUE" ? "line-through opacity-50" : ""}`}>
                               {item.title}
                             </p>
                           </div>

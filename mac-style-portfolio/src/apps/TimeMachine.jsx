@@ -97,7 +97,7 @@ const TimeMachine = () => {
 
             <div className="p-4">
                 <p className="text-fluid-xl font-bold text-white">{experience.company}</p>
-                <p className="text-fluid-base text-gray-300 mt-0.5">{experience.role}</p>
+                <p data-ghost={depth === 0 ? 'timemachine:role' : undefined} className="text-fluid-base text-gray-300 mt-0.5">{experience.role}</p>
 
                 <div className="flex flex-wrap gap-2 mt-4">
                     {(experience.tech || '').split(", ").map((item, i) => (

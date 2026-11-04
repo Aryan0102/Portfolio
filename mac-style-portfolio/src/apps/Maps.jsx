@@ -206,7 +206,7 @@ const Maps = () => {
                         {getIconByCategory(selectedPlace.category)}
                       </div>
                       <div className="flex-1">
-                        <p className="text-white font-medium">{selectedPlace.name}</p>
+                        <p data-ghost="maps:place" className="text-white font-medium">{selectedPlace.name}</p>
                         <p className="text-sm text-gray-400">{selectedPlace.address}</p>
                         <p className="text-xs text-gray-300 mt-2 leading-relaxed">
                           {selectedPlace.description}

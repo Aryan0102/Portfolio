@@ -174,6 +174,7 @@ const Spotlight = () => {
                     <IoSearch className="w-6 h-6 text-white/60 flex-shrink-0" />
                     <input
                         ref={inputRef}
+                        data-ghost="spotlight:field"
                         type="text"
                         value={query}
                         onChange={(e) => setQuery(e.target.value)}
@@ -201,6 +202,7 @@ const Spotlight = () => {
                                         <button
                                             key={`${result.category}-${result.title}-${position}`}
                                             ref={(node) => { rowRefs.current[position] = node; }}
+                                            data-ghost={position === 0 ? 'spotlight:top' : undefined}
                                             onMouseMove={() => position !== selected && setSelected(position)}
                                             onClick={() => openResult(result)}
                                             className={`w-full flex items-center gap-3 px-2 py-1.5 rounded-md text-left transition-colors ${

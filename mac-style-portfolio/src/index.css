@@ -63,3 +63,24 @@
   animation: ghost-press 0.25s ease-out;
   transform-origin: 3px 2px;
 }
+
+@keyframes ghost-draw {
+  from { stroke-dashoffset: 1; }
+  to { stroke-dashoffset: 0; }
+}
+
+.ghost-draw {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: ghost-draw 0.65s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.4));
+}
+
+@keyframes ghost-key {
+  from { opacity: 0; transform: translateY(8px) scale(0.9); }
+  to { opacity: 1; transform: none; }
+}
+
+.ghost-key {
+  animation: ghost-key 0.2s ease-out;
+}

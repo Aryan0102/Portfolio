@@ -89,6 +89,7 @@ const VsCode = () => {
                   {projects.map((project, index) => (
                     <div
                       key={project.title}
+                      data-ghost={`vscode:file:${project.title}`}
                       className={`flex items-center gap-2 py-1.5 px-4 hover:bg-gray-700 cursor-pointer ${activeFile === index ? 'bg-gray-700' : ''}`}
                       onClick={() => setActiveFile(index)}
                     >
@@ -113,10 +114,10 @@ const VsCode = () => {
                 <div className="flex-1 overflow-auto bg-[#1e1e1e] p-8">
                   <div className="max-w-4xl mx-auto">
                     {/* Project Title */}
-                    <p className="text-4xl font-bold text-white mb-6">{currentProject.title}</p>
+                    <p data-ghost="vscode:title" className="text-4xl font-bold text-white mb-6">{currentProject.title}</p>
 
                     {/* Tech Stack */}
-                    <div className="flex flex-wrap gap-3 mb-8">
+                    <div data-ghost="vscode:tech" className="flex flex-wrap gap-3 mb-8">
                       {currentProject?.tech.split(", ").map((tech) => {
                         return (
                           <div key={tech} className="flex items-center bg-gray-700 px-3 py-1.5 rounded-lg">
