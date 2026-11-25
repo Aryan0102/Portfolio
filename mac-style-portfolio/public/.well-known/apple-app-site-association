@@ -1,0 +1,12 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["WLD755CCNL.com.aryan-sgupta.orbit"],
+        "components": [
+          { "/": "/orbit/plaid/*", "comment": "Return from Plaid OAuth (Robinhood) to the Orbit app" }
+        ]
+      }
+    ]
+  }
+}

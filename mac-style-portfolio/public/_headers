@@ -1,0 +1,3 @@
+# Apple fetches this file to verify Orbit's universal link; it must be served as JSON, with no redirect.
+/.well-known/apple-app-site-association
+  Content-Type: application/json
