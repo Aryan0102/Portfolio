@@ -1,0 +1,6 @@
+# Orbit's privacy policy and support pages moved to orbitrings.app (2026-11-28). /orbit/plaid/ and the
+# universal-link file stay here: Plaid and the app's Associated Domains point at this domain.
+/orbit/privacy/*  https://orbitrings.app/privacy/  301
+/orbit/support/*  https://orbitrings.app/support/  301
+/orbit/privacy    https://orbitrings.app/privacy/  301
+/orbit/support    https://orbitrings.app/support/  301
